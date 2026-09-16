@@ -6,16 +6,9 @@
 
   <title>Admin — Sweet Home Mousse's</title>
 
+  <!-- SUPABASE -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  const SUPABASE_URL = "https://yrhpvadtscugkcqnmmda.supabase.co";
-  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_SArSO4fHx4-elZZuO2C-ag_4pz5hSQZ";
 
-  const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
-</script>
   <style>
     * {
       box-sizing: border-box;
@@ -27,6 +20,134 @@
       background: #f5f5f5;
       color: #222;
     }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 16px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: #111;
+      color: white;
+    }
+
+    .btn-success {
+      background: #198754;
+      color: white;
+    }
+
+    .btn-danger {
+      background: #dc3545;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #ddd;
+      color: #222;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.06);
+    }
+
+    /* LOGIN */
+
+    .login {
+      width: calc(100% - 30px);
+      max-width: 420px;
+      margin: 70px auto;
+    }
+
+    .login h1 {
+      margin-top: 0;
+      font-size: 24px;
+    }
+
+    .login p {
+      color: #666;
+      line-height: 1.5;
+    }
+
+    /* CAMPOS */
+
+    .field {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 15px;
+      background: white;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    /* STATUS */
+
+    .status {
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      display: none;
+    }
+
+    .status.success {
+      display: block;
+      background: #d1e7dd;
+      color: #0f5132;
+    }
+
+    .status.error {
+      display: block;
+      background: #f8d7da;
+      color: #842029;
+    }
+
+    /* HEADER */
 
     header {
       background: #111;
@@ -53,39 +174,12 @@
     }
 
     header small {
-      opacity: .7;
       display: block;
       margin-top: 4px;
+      opacity: .7;
     }
 
-    button {
-      border: 0;
-      border-radius: 10px;
-      padding: 11px 16px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    .btn-primary {
-      background: #111;
-      color: white;
-    }
-
-    .btn-success {
-      background: #198754;
-      color: white;
-    }
-
-    .btn-danger {
-      background: #dc3545;
-      color: white;
-    }
-
-    .btn-secondary {
-      background: #ddd;
-      color: #222;
-    }
+    /* CONTEÚDO */
 
     main {
       max-width: 1100px;
@@ -93,61 +187,17 @@
       padding: 0 15px 50px;
     }
 
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 3px 15px rgba(0,0,0,.06);
-    }
-
-    .card h2 {
-      margin-top: 0;
-      font-size: 20px;
-    }
-
-    .login {
-      max-width: 420px;
-      margin: 70px auto;
-    }
-
-    .field {
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
       margin-bottom: 15px;
     }
 
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 6px;
-      font-size: 14px;
-    }
-
-    input,
-    textarea,
-    select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 15px;
-      background: white;
-    }
-
-    textarea {
-      min-height: 90px;
-      resize: vertical;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
+    .section-title h2 {
+      margin: 0;
+      font-size: 20px;
     }
 
     .actions {
@@ -156,6 +206,8 @@
       flex-wrap: wrap;
       margin-top: 15px;
     }
+
+    /* PRODUTOS */
 
     .product-list {
       display: grid;
@@ -172,9 +224,13 @@
       background: #fff;
     }
 
+    .product.inactive {
+      opacity: .55;
+    }
+
     .product img {
-      width: 100px;
-      height: 100px;
+      width: 110px;
+      height: 110px;
       object-fit: cover;
       border-radius: 12px;
       background: #eee;
@@ -188,7 +244,7 @@
 
     .product-name {
       font-weight: bold;
-      font-size: 16px;
+      font-size: 17px;
       margin-bottom: 6px;
     }
 
@@ -220,31 +276,18 @@
       margin-top: 7px;
     }
 
-    .inactive {
-      opacity: .55;
+    /* FOTO */
+
+    .preview {
+      margin-top: 10px;
     }
 
-    .hidden {
-      display: none !important;
-    }
-
-    .status {
-      padding: 12px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      display: none;
-    }
-
-    .status.success {
-      display: block;
-      background: #d1e7dd;
-      color: #0f5132;
-    }
-
-    .status.error {
-      display: block;
-      background: #f8d7da;
-      color: #842029;
+    .preview img {
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid #ddd;
     }
 
     .loading {
@@ -253,27 +296,8 @@
       color: #777;
     }
 
-    .preview {
-      margin-top: 10px;
-    }
-
-    .preview img {
-      width: 130px;
-      height: 130px;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 1px solid #ddd;
-    }
-
-    .section-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-
     @media (max-width: 750px) {
+
       .grid,
       .grid-3,
       .product-list {
@@ -286,7 +310,7 @@
 
       .product img {
         width: 100%;
-        height: 180px;
+        height: 200px;
       }
 
       header .top {
@@ -299,104 +323,177 @@
 
 <body>
 
-  <!-- LOGIN -->
+  <!-- =====================================================
+       LOGIN
+       ===================================================== -->
+
   <section id="loginScreen" class="login card">
-    <h2>🔐 Administração</h2>
+
+    <h1>🔐 Administração</h1>
 
     <p>
-      Entre com o e-mail e senha do administrador.
+      Entre com o e-mail e a senha do administrador.
     </p>
 
     <div id="loginStatus" class="status"></div>
 
     <div class="field">
       <label for="email">E-mail</label>
-      <input id="email" type="email" placeholder="Seu e-mail">
+
+      <input
+        id="email"
+        type="email"
+        placeholder="Seu e-mail"
+        autocomplete="email">
     </div>
 
     <div class="field">
       <label for="password">Senha</label>
-      <input id="password" type="password" placeholder="Sua senha">
+
+      <input
+        id="password"
+        type="password"
+        placeholder="Sua senha"
+        autocomplete="current-password">
     </div>
 
-    <button class="btn-primary" style="width:100%;" onclick="login()">
+    <button
+      id="loginButton"
+      class="btn-primary"
+      style="width:100%;"
+      onclick="login()">
+
       Entrar
+
     </button>
+
   </section>
 
 
-  <!-- PAINEL -->
+  <!-- =====================================================
+       PAINEL ADMIN
+       ===================================================== -->
+
   <div id="adminScreen" class="hidden">
 
     <header>
+
       <div class="top">
+
         <div>
           <h1>🍰 Sweet Home Mousse's</h1>
-          <small>Painel administrativo</small>
+
+          <small>
+            Painel administrativo
+          </small>
         </div>
 
-        <button class="btn-secondary" onclick="logout()">
+        <button
+          class="btn-secondary"
+          onclick="logout()">
+
           Sair
+
         </button>
+
       </div>
+
     </header>
+
 
     <main>
 
       <div id="globalStatus" class="status"></div>
 
 
-      <!-- FORMULÁRIO -->
+      <!-- =================================================
+           FORMULÁRIO
+           ================================================= -->
+
       <section class="card">
 
         <div class="section-title">
-          <h2 id="formTitle">➕ Novo produto</h2>
+
+          <h2 id="formTitle">
+            ➕ Novo produto
+          </h2>
 
           <button
             id="cancelEdit"
             class="btn-secondary hidden"
             onclick="cancelEdit()">
+
             Cancelar edição
+
           </button>
+
         </div>
 
-        <input type="hidden" id="productId">
+
+        <input
+          type="hidden"
+          id="productId">
+
 
         <div class="grid">
 
           <div class="field">
-            <label for="name">Nome do produto *</label>
+
+            <label for="name">
+              Nome do produto *
+            </label>
+
             <input
               id="name"
               type="text"
               placeholder="Ex.: Tentação de Morango">
+
           </div>
 
+
           <div class="field">
-            <label for="category">Categoria *</label>
+
+            <label for="category">
+              Categoria *
+            </label>
 
             <select id="category">
-              <option value="garrafa">Tentações em Garrafa</option>
-              <option value="bebida">Bebida</option>
+
+              <option value="garrafa">
+                Tentações em Garrafa
+              </option>
+
+              <option value="bebida">
+                Bebida
+              </option>
+
             </select>
+
           </div>
 
         </div>
 
 
         <div class="field">
-          <label for="description">Descrição</label>
+
+          <label for="description">
+            Descrição
+          </label>
 
           <textarea
             id="description"
             placeholder="Descrição do produto"></textarea>
+
         </div>
 
 
         <div class="grid-3">
 
           <div class="field">
-            <label for="price">Preço *</label>
+
+            <label for="price">
+              Preço *
+            </label>
 
             <input
               id="price"
@@ -404,10 +501,15 @@
               min="0"
               step="0.01"
               placeholder="20.00">
+
           </div>
 
+
           <div class="field">
-            <label for="oldPrice">Preço antigo</label>
+
+            <label for="oldPrice">
+              Preço antigo
+            </label>
 
             <input
               id="oldPrice"
@@ -415,10 +517,15 @@
               min="0"
               step="0.01"
               placeholder="23.00">
+
           </div>
 
+
           <div class="field">
-            <label for="sortOrder">Ordem</label>
+
+            <label for="sortOrder">
+              Ordem
+            </label>
 
             <input
               id="sortOrder"
@@ -426,6 +533,7 @@
               min="0"
               step="1"
               value="0">
+
           </div>
 
         </div>
@@ -443,7 +551,10 @@
             accept="image/*"
             onchange="previewImage(event)">
 
-          <div id="preview" class="preview"></div>
+          <div
+            id="preview"
+            class="preview">
+          </div>
 
         </div>
 
@@ -451,6 +562,7 @@
         <div class="field">
 
           <label>
+
             <input
               id="active"
               type="checkbox"
@@ -458,6 +570,7 @@
               style="width:auto;margin-right:7px;">
 
             Produto ativo no cardápio
+
           </label>
 
         </div>
@@ -473,6 +586,7 @@
 
           </button>
 
+
           <button
             class="btn-secondary"
             onclick="clearForm()">
@@ -486,12 +600,17 @@
       </section>
 
 
-      <!-- PRODUTOS -->
+      <!-- =================================================
+           LISTA DE PRODUTOS
+           ================================================= -->
+
       <section class="card">
 
         <div class="section-title">
 
-          <h2>📦 Produtos cadastrados</h2>
+          <h2>
+            📦 Produtos cadastrados
+          </h2>
 
           <button
             class="btn-primary"
@@ -503,7 +622,10 @@
 
         </div>
 
-        <div id="productList" class="product-list">
+
+        <div
+          id="productList"
+          class="product-list">
 
           <div class="loading">
             Carregando produtos...
@@ -518,578 +640,509 @@
   </div>
 
 
-<script>
-  /* =========================================================
-     CONFIGURAÇÃO DO SUPABASE
-     ========================================================= */
+  <!-- =====================================================
+       JAVASCRIPT
+       ===================================================== -->
 
-  const SUPABASE_URL =
-    "https://yrhpvadtscugkcqnmmda.supabase.co";
+  <script>
 
-  const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_SArSO4fHx4-elZZuO2C-ag_4pz5hSQZ";
+    /* =====================================================
+       CONFIGURAÇÃO DO SUPABASE
+       ===================================================== */
 
-  const supabaseClient =
-    window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_PUBLISHABLE_KEY
+    const SUPABASE_URL =
+      "https://yrhpvadtscugkcqnmmda.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_SArSO4fHx4-elZZuO2C-ag_4pz5hSQZ";
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+
+
+    let editingProduct = null;
+
+
+    /* =====================================================
+       INICIALIZAÇÃO
+       ===================================================== */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      async () => {
+
+        try {
+
+          const {
+            data: {
+              session
+            }
+          } = await supabaseClient.auth.getSession();
+
+
+          if (session) {
+
+            await checkAdmin();
+
+          }
+
+        } catch (error) {
+
+          console.error(error);
+
+        }
+
+      }
     );
 
 
-  let editingProduct = null;
+    /* =====================================================
+       MENSAGENS
+       ===================================================== */
 
+    function showStatus(
+      elementId,
+      message,
+      type = "success"
+    ) {
 
-  /* =========================================================
-     INICIALIZAÇÃO
-     ========================================================= */
+      const element =
+        document.getElementById(elementId);
 
-  document.addEventListener("DOMContentLoaded", async () => {
+      if (!element) return;
 
-    const {
-      data: {
-        session
-      }
-    } = await supabaseClient.auth.getSession();
+      element.textContent = message;
 
-    if (session) {
-      await checkAdmin();
-    }
+      element.className =
+        "status " + type;
 
-  });
-
-
-  /* =========================================================
-     MENSAGENS
-     ========================================================= */
-
-  function showStatus(elementId, message, type = "success") {
-
-    const el = document.getElementById(elementId);
-
-    el.textContent = message;
-
-    el.className = "status " + type;
-
-    setTimeout(() => {
-      el.className = "status";
-    }, 5000);
-  }
-
-
-  /* =========================================================
-     LOGIN
-     ========================================================= */
-
-  async function login() {
-
-    const email =
-      document.getElementById("email").value.trim();
-
-    const password =
-      document.getElementById("password").value;
-
-    if (!email || !password) {
-
-      showStatus(
-        "loginStatus",
-        "Preencha o e-mail e a senha.",
-        "error"
-      );
-
-      return;
     }
 
 
-    const {
-      error
-    } = await supabaseClient.auth.signInWithPassword({
-      email,
-      password
-    });
+    /* =====================================================
+       LOGIN
+       ===================================================== */
+
+    async function login() {
+
+      const email =
+        document
+          .getElementById("email")
+          .value
+          .trim();
+
+      const password =
+        document
+          .getElementById("password")
+          .value;
+
+      const button =
+        document.getElementById("loginButton");
 
 
-    if (error) {
-
-      showStatus(
-        "loginStatus",
-        "E-mail ou senha incorretos.",
-        "error"
-      );
-
-      console.error(error);
-
-      return;
-    }
-
-
-    await checkAdmin();
-  }
-
-
-  /* =========================================================
-     VERIFICAR ADMIN
-     ========================================================= */
-
-  async function checkAdmin() {
-
-    try {
-
-      const {
-        data,
-        error
-      } = await supabaseClient.rpc("is_admin");
-
-
-      if (error) {
-        throw error;
-      }
-
-
-      if (data !== true) {
-
-        await supabaseClient.auth.signOut();
+      if (!email || !password) {
 
         showStatus(
           "loginStatus",
-          "Este usuário não possui acesso de administrador.",
+          "Preencha o e-mail e a senha.",
           "error"
         );
 
         return;
+
       }
 
 
-      document
-        .getElementById("loginScreen")
-        .classList.add("hidden");
+      button.disabled = true;
 
-      document
-        .getElementById("adminScreen")
-        .classList.remove("hidden");
+      button.textContent =
+        "Entrando...";
 
 
-      await loadProducts();
+      try {
 
-    } catch (error) {
+        const {
+          error
+        } =
+          await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+          });
 
-      console.error(error);
 
-      showStatus(
-        "loginStatus",
-        "Não foi possível verificar o administrador.",
-        "error"
-      );
+        if (error) {
+
+          console.error(error);
+
+          showStatus(
+            "loginStatus",
+            "E-mail ou senha incorretos.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        await checkAdmin();
+
+      } catch (error) {
+
+        console.error(error);
+
+        showStatus(
+          "loginStatus",
+          "Erro ao entrar. Tente novamente.",
+          "error"
+        );
+
+      } finally {
+
+        button.disabled = false;
+
+        button.textContent =
+          "Entrar";
+
+      }
 
     }
 
-  }
+
+    /* =====================================================
+       VERIFICAR ADMIN
+       ===================================================== */
+
+    async function checkAdmin() {
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient.rpc(
+            "is_admin"
+          );
 
 
-  /* =========================================================
-     LOGOUT
-     ========================================================= */
+        if (error) {
 
-  async function logout() {
+          console.error(error);
 
-    await supabaseClient.auth.signOut();
+          throw error;
 
-    location.reload();
-
-  }
+        }
 
 
-  /* =========================================================
-     CARREGAR PRODUTOS
-     ========================================================= */
+        if (data !== true) {
 
-  async function loadProducts() {
+          await supabaseClient.auth.signOut();
 
-    const list =
-      document.getElementById("productList");
+          showStatus(
+            "loginStatus",
+            "Este usuário não possui acesso de administrador.",
+            "error"
+          );
 
-    list.innerHTML =
-      '<div class="loading">Carregando produtos...</div>';
+          return;
 
-
-    const {
-      data,
-      error
-    } = await supabaseClient
-      .from("products")
-      .select("*")
-      .order("category", { ascending: true })
-      .order("sort_order", { ascending: true })
-      .order("name", { ascending: true });
+        }
 
 
-    if (error) {
+        document
+          .getElementById("loginScreen")
+          .classList
+          .add("hidden");
 
-      console.error(error);
+
+        document
+          .getElementById("adminScreen")
+          .classList
+          .remove("hidden");
+
+
+        await loadProducts();
+
+      } catch (error) {
+
+        console.error(error);
+
+        showStatus(
+          "loginStatus",
+          "Não foi possível verificar o administrador.",
+          "error"
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       LOGOUT
+       ===================================================== */
+
+    async function logout() {
+
+      await supabaseClient.auth.signOut();
+
+      location.reload();
+
+    }
+
+
+    /* =====================================================
+       CARREGAR PRODUTOS
+       ===================================================== */
+
+    async function loadProducts() {
+
+      const list =
+        document.getElementById(
+          "productList"
+        );
+
 
       list.innerHTML =
-        '<div class="loading">Erro ao carregar produtos.</div>';
-
-      showStatus(
-        "globalStatus",
-        "Erro ao carregar produtos.",
-        "error"
-      );
-
-      return;
-    }
+        '<div class="loading">Carregando produtos...</div>';
 
 
-    if (!data || data.length === 0) {
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+          .from("products")
+          .select("*")
+          .order("category", {
+            ascending: true
+          })
+          .order("sort_order", {
+            ascending: true
+          })
+          .order("name", {
+            ascending: true
+          });
+
+
+      if (error) {
+
+        console.error(error);
+
+        list.innerHTML =
+          '<div class="loading">Erro ao carregar produtos.</div>';
+
+        showStatus(
+          "globalStatus",
+          "Erro ao carregar produtos.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      if (!data || data.length === 0) {
+
+        list.innerHTML =
+          '<div class="loading">Nenhum produto cadastrado.</div>';
+
+        return;
+
+      }
+
 
       list.innerHTML =
-        '<div class="loading">Nenhum produto cadastrado.</div>';
+        data
+          .map(productCard)
+          .join("");
 
-      return;
     }
 
 
-    list.innerHTML =
-      data.map(productCard).join("");
+    /* =====================================================
+       CARD DO PRODUTO
+       ===================================================== */
 
-  }
+    function productCard(product) {
 
-
-  /* =========================================================
-     CARD DO PRODUTO
-     ========================================================= */
-
-  function productCard(product) {
-
-    const image =
-      product.image_url ||
-      "https://placehold.co/300x300?text=Sem+foto";
+      const image =
+        product.image_url ||
+        "https://placehold.co/300x300?text=Sem+foto";
 
 
-    const category =
-      product.category === "garrafa"
-        ? "🍰 Tentações em Garrafa"
-        : "🥤 Bebida";
+      const category =
+        product.category === "garrafa"
+          ? "🍰 Tentações em Garrafa"
+          : "🥤 Bebida";
 
 
-    const price =
-      Number(product.price || 0)
-        .toLocaleString("pt-BR", {
-          style: "currency",
-          currency: "BRL"
-        });
-
-
-    let oldPrice = "";
-
-    if (product.old_price) {
-
-      oldPrice =
-        `<span class="old-price">
-          ${Number(product.old_price).toLocaleString(
+      const price =
+        Number(product.price || 0)
+          .toLocaleString(
             "pt-BR",
             {
               style: "currency",
               currency: "BRL"
             }
-          )}
-        </span>`;
-
-    }
+          );
 
 
-    const inactive =
-      product.active ? "" : "inactive";
+      let oldPrice = "";
 
 
-    return `
-      <div class="product ${inactive}">
+      if (
+        product.old_price !== null &&
+        product.old_price !== undefined &&
+        product.old_price !== ""
+      ) {
 
-        <img
-          src="${escapeHtml(image)}"
-          alt="${escapeHtml(product.name)}"
-          onerror="this.src='https://placehold.co/300x300?text=Sem+foto'">
-
-        <div class="product-info">
-
-          <div class="product-name">
-            ${escapeHtml(product.name)}
-          </div>
-
-          <div class="product-desc">
-            ${escapeHtml(product.description || "")}
-          </div>
-
-          <div class="price">
-            ${price}
-            ${oldPrice}
-          </div>
-
-          <span class="tag">
-            ${category}
+        oldPrice =
+          `
+          <span class="old-price">
+            ${
+              Number(product.old_price)
+                .toLocaleString(
+                  "pt-BR",
+                  {
+                    style: "currency",
+                    currency: "BRL"
+                  }
+                )
+            }
           </span>
+          `;
 
-          <span class="tag">
-            ${product.active ? "✅ Ativo" : "❌ Inativo"}
-          </span>
+      }
 
-          <div class="actions">
 
-            <button
-              class="btn-primary"
-              onclick='editProduct(${JSON.stringify(product).replace(/'/g, "&#39;")})'>
-              ✏️ Editar
-            </button>
+      const inactive =
+        product.active
+          ? ""
+          : "inactive";
 
-            <button
-              class="${product.active ? "btn-secondary" : "btn-success"}"
-              onclick="toggleProduct('${product.id}', ${product.active})">
-              ${product.active ? "👁️ Desativar" : "👁️ Ativar"}
-            </button>
 
-            <button
-              class="btn-danger"
-              onclick="deleteProduct('${product.id}', '${escapeHtml(product.name).replace(/'/g, "\\'")}')">
-              🗑️ Excluir
-            </button>
+      return `
+
+        <div class="product ${inactive}">
+
+          <img
+            src="${escapeHtml(image)}"
+            alt="${escapeHtml(product.name)}"
+            onerror="this.src='https://placehold.co/300x300?text=Sem+foto'">
+
+
+          <div class="product-info">
+
+            <div class="product-name">
+              ${escapeHtml(product.name)}
+            </div>
+
+
+            <div class="product-desc">
+              ${escapeHtml(product.description || "")}
+            </div>
+
+
+            <div class="price">
+              ${price}
+              ${oldPrice}
+            </div>
+
+
+            <span class="tag">
+              ${category}
+            </span>
+
+
+            <span class="tag">
+              ${
+                product.active
+                  ? "✅ Ativo"
+                  : "❌ Inativo"
+              }
+            </span>
+
+
+            <div class="actions">
+
+              <button
+                class="btn-primary"
+                onclick="editProduct('${product.id}')">
+
+                ✏️ Editar
+
+              </button>
+
+
+              <button
+                class="${
+                  product.active
+                    ? "btn-secondary"
+                    : "btn-success"
+                }"
+                onclick="toggleProduct(
+                  '${product.id}',
+                  ${product.active}
+                )">
+
+                ${
+                  product.active
+                    ? "👁️ Desativar"
+                    : "👁️ Ativar"
+                }
+
+              </button>
+
+
+              <button
+                class="btn-danger"
+                onclick="deleteProduct(
+                  '${product.id}',
+                  '${escapeJs(product.name)}'
+                )">
+
+                🗑️ Excluir
+
+              </button>
+
+            </div>
 
           </div>
 
         </div>
 
-      </div>
-    `;
-  }
+      `;
 
-
-  /* =========================================================
-     SALVAR PRODUTO
-     ========================================================= */
-
-  async function saveProduct() {
-
-    const id =
-      document.getElementById("productId").value;
-
-
-    const name =
-      document.getElementById("name").value.trim();
-
-    const description =
-      document.getElementById("description").value.trim();
-
-    const price =
-      parseFloat(
-        document.getElementById("price").value
-      );
-
-    const oldPriceValue =
-      document.getElementById("oldPrice").value;
-
-    const oldPrice =
-      oldPriceValue === ""
-        ? null
-        : parseFloat(oldPriceValue);
-
-
-    const category =
-      document.getElementById("category").value;
-
-
-    const sortOrder =
-      parseInt(
-        document.getElementById("sortOrder").value || "0",
-        10
-      );
-
-
-    const active =
-      document.getElementById("active").checked;
-
-
-    const imageFile =
-      document.getElementById("image").files[0];
-
-
-    if (!name) {
-
-      showStatus(
-        "globalStatus",
-        "Digite o nome do produto.",
-        "error"
-      );
-
-      return;
     }
 
 
-    if (isNaN(price)) {
+    /* =====================================================
+       SALVAR PRODUTO
+       ===================================================== */
 
-      showStatus(
-        "globalStatus",
-        "Digite um preço válido.",
-        "error"
-      );
+    async function saveProduct() {
 
-      return;
-    }
-
-
-    try {
-
-      let imageUrl =
-        editingProduct?.image_url || null;
+      const id =
+        document
+          .getElementById("productId")
+          .value;
 
 
-      /* -----------------------------------------------------
-         UPLOAD DA FOTO
-         ----------------------------------------------------- */
-
-      if (imageFile) {
-
-        const extension =
-          imageFile.name
-            .split(".")
-            .pop()
-            .toLowerCase();
+      const name =
+        document
+          .getElementById("name")
+          .value
+          .trim();
 
 
-        const fileName =
-          Date.now() +
-          "-" +
-          Math.random()
-            .toString(36)
-            .substring(2) +
-          "." +
-          extension;
-
-
-        const filePath =
-          fileName;
-
-
-        const {
-          error: uploadError
-        } = await supabaseClient
-          .storage
-          .from("product-images")
-          .upload(
-            filePath,
-            imageFile,
-            {
-              cacheControl: "3600",
-              upsert: false
-            }
-          );
-
-
-        if (uploadError) {
-          throw uploadError;
-        }
-
-
-        const {
-          data: publicUrlData
-        } =
-          supabaseClient
-            .storage
-            .from("product-images")
-            .getPublicUrl(filePath);
-
-
-        imageUrl =
-          publicUrlData.publicUrl;
-
-      }
-
-
-      /* -----------------------------------------------------
-         DADOS DO PRODUTO
-         ----------------------------------------------------- */
-
-      const productData = {
-
-        name,
-
-        description,
-
-        price,
-
-        old_price: oldPrice,
-
-        category,
-
-        image_url: imageUrl,
-
-        active,
-
-        sort_order: sortOrder,
-
-        updated_at: new Date().toISOString()
-
-      };
-
-
-      /* -----------------------------------------------------
-         ATUALIZAR
-         ----------------------------------------------------- */
-
-      if (id) {
-
-        const {
-          error
-        } = await supabaseClient
-          .from("products")
-          .update(productData)
-          .eq("id", id);
-
-
-        if (error) {
-          throw error;
-        }
-
-
-        showStatus(
-          "globalStatus",
-          "Produto atualizado com sucesso! ✅"
-        );
-
-      }
-
-
-      /* -----------------------------------------------------
-         CRIAR
-         ----------------------------------------------------- */
-
-      else {
-
-        const {
-          error
-        } = await supabaseClient
-          .from("products")
-          .insert(productData);
-
-
-        if (error) {
-          throw error;
-        }
-
-
-        showStatus(
-          "globalStatus",
-          "Produto criado com sucesso! 🎉"
-        );
-
-      }
-
-
-      clearForm();
-
-      await loadProducts();
-
-
-    } catch (error) {
-
-      console.error(error);
-
-      showStatus(
-        "globalStatus",
+      const description =
+        document
+          .getElementById("description")
+          .value
+          .trim();
