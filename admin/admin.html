@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Admin — Sweet Home Mousse's</title>
+  <title>Admin - Sweet Home Mousse's</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -27,12 +27,12 @@
       position: sticky;
       top: 0;
       z-index: 20;
-      box-shadow: 0 2px 10px rgba(0,0,0,.15);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
     }
 
     header .top {
       max-width: 1100px;
-      margin: auto;
+      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -45,43 +45,9 @@
     }
 
     header small {
-      opacity: .7;
       display: block;
       margin-top: 4px;
-    }
-
-    button {
-      border: 0;
-      border-radius: 10px;
-      padding: 11px 16px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    button:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-    }
-
-    .btn-primary {
-      background: #111;
-      color: #fff;
-    }
-
-    .btn-success {
-      background: #198754;
-      color: #fff;
-    }
-
-    .btn-danger {
-      background: #dc3545;
-      color: #fff;
-    }
-
-    .btn-secondary {
-      background: #ddd;
-      color: #222;
+      opacity: 0.7;
     }
 
     main {
@@ -95,17 +61,16 @@
       border-radius: 16px;
       padding: 20px;
       margin-bottom: 20px;
-      box-shadow: 0 3px 15px rgba(0,0,0,.06);
-    }
-
-    .card h2 {
-      margin-top: 0;
-      font-size: 20px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
     }
 
     .login {
       max-width: 420px;
       margin: 70px auto;
+    }
+
+    .card h2 {
+      margin-top: 0;
     }
 
     .field {
@@ -135,6 +100,40 @@
       resize: vertical;
     }
 
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 16px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: #111;
+      color: #fff;
+    }
+
+    .btn-success {
+      background: #198754;
+      color: #fff;
+    }
+
+    .btn-danger {
+      background: #dc3545;
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: #ddd;
+      color: #222;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -154,6 +153,18 @@
       margin-top: 15px;
     }
 
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+    }
+
     .product-list {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -167,6 +178,10 @@
       display: flex;
       gap: 14px;
       background: #fff;
+    }
+
+    .product.inactive {
+      opacity: 0.55;
     }
 
     .product img {
@@ -216,14 +231,7 @@
       padding: 4px 9px;
       font-size: 11px;
       margin-top: 7px;
-    }
-
-    .inactive {
-      opacity: .55;
-    }
-
-    .hidden {
-      display: none !important;
+      margin-right: 4px;
     }
 
     .status {
@@ -263,12 +271,8 @@
       border: 1px solid #ddd;
     }
 
-    .section-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 15px;
+    .hidden {
+      display: none !important;
     }
 
     @media (max-width: 750px) {
@@ -288,8 +292,8 @@
       }
 
       header .top {
-        align-items: flex-start;
         flex-direction: column;
+        align-items: flex-start;
       }
     }
   </style>
@@ -337,7 +341,7 @@
       id="loginButton"
       class="btn-primary"
       type="button"
-      style="width:100%;"
+      style="width: 100%;"
     >
       Entrar
     </button>
@@ -352,7 +356,6 @@
   <div id="adminScreen" class="hidden">
 
     <header>
-
       <div class="top">
 
         <div>
@@ -369,7 +372,6 @@
         </button>
 
       </div>
-
     </header>
 
 
@@ -379,7 +381,7 @@
 
 
       <!-- =========================
-           FORMULÁRIO
+           FORMULÁRIO DO PRODUTO
            ========================= -->
 
       <section class="card">
@@ -544,7 +546,7 @@
               id="active"
               type="checkbox"
               checked
-              style="width:auto;margin-right:7px;"
+              style="width: auto; margin-right: 7px;"
             >
 
             Produto ativo no cardápio
@@ -564,7 +566,6 @@
             💾 Salvar produto
           </button>
 
-
           <button
             id="clearButton"
             class="btn-secondary"
@@ -579,7 +580,7 @@
 
 
       <!-- =========================
-           PRODUTOS
+           LISTA DE PRODUTOS
            ========================= -->
 
       <section class="card">
@@ -629,10 +630,7 @@
 
 
     /* =========================================================
-       CONFIGURAÇÃO DO SUPABASE
-
-       IMPORTANTE:
-       ESTA É A ÚNICA CONFIGURAÇÃO DO SUPABASE NO ARQUIVO.
+       SUPABASE
        ========================================================= */
 
     const SUPABASE_URL =
@@ -641,19 +639,6 @@
     const SUPABASE_PUBLISHABLE_KEY =
       "sb_publishable_SArSO4fHx4-elZZuO2C-ag_4pz5hSQZ";
 
-
-    if (
-      !window.supabase ||
-      typeof window.supabase.createClient !== "function"
-    ) {
-
-      throw new Error(
-        "A biblioteca do Supabase não foi carregada."
-      );
-
-    }
-
-
     const supabaseClient =
       window.supabase.createClient(
         SUPABASE_URL,
@@ -661,21 +646,26 @@
       );
 
 
-    const FALLBACK_IMAGE =
-      "https://placehold.co/300x300?text=Sem+foto";
-
+    /* =========================================================
+       VARIÁVEIS
+       ========================================================= */
 
     let editingProduct = null;
 
     let productsCache = [];
 
 
+    const FALLBACK_IMAGE =
+      "https://placehold.co/300x300?text=Sem+foto";
+
+
     /* =========================================================
-       ATALHO PARA ELEMENTOS
+       FUNÇÃO $
        ========================================================= */
 
-    const $ = (id) =>
-      document.getElementById(id);
+    function $(id) {
+      return document.getElementById(id);
+    }
 
 
     /* =========================================================
@@ -688,42 +678,34 @@
       type = "success"
     ) {
 
-      const element =
-        $(elementId);
+      const element = $(elementId);
 
       if (!element) {
         return;
       }
 
-
-      element.textContent =
-        message;
+      element.textContent = message;
 
       element.className =
         "status " + type;
 
-
-      window.clearTimeout(
-        element._statusTimer
+      clearTimeout(
+        element._timer
       );
 
-
-      element._statusTimer =
-        window.setTimeout(
-          () => {
-
+      element._timer =
+        setTimeout(
+          function () {
             element.className =
               "status";
-
           },
           5000
         );
-
     }
 
 
     /* =========================================================
-       BOTÃO DE CARREGAMENTO
+       BOTÃO BUSY
        ========================================================= */
 
     function setButtonBusy(
@@ -736,7 +718,6 @@
         return;
       }
 
-
       if (busy) {
 
         button.dataset.originalText =
@@ -745,8 +726,7 @@
         button.textContent =
           busyText;
 
-        button.disabled =
-          true;
+        button.disabled = true;
 
       } else {
 
@@ -754,16 +734,14 @@
           button.dataset.originalText ||
           button.textContent;
 
-        button.disabled =
-          false;
+        button.disabled = false;
 
       }
-
     }
 
 
     /* =========================================================
-       ESCAPAR HTML
+       ESCAPE HTML
        ========================================================= */
 
     function escapeHtml(value) {
@@ -774,7 +752,6 @@
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
-
     }
 
 
@@ -792,7 +769,6 @@
             currency: "BRL"
           }
         );
-
     }
 
 
@@ -806,21 +782,17 @@
         product.image_url ||
         FALLBACK_IMAGE;
 
-
       const category =
         product.category === "garrafa"
           ? "🍰 Tentações em Garrafa"
           : "🥤 Bebida";
-
 
       const inactive =
         product.active
           ? ""
           : "inactive";
 
-
       let oldPrice = "";
-
 
       if (
         product.old_price !== null &&
@@ -833,9 +805,7 @@
             ${formatBRL(product.old_price)}
           </span>
         `;
-
       }
-
 
       return `
 
@@ -847,13 +817,11 @@
             onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'"
           >
 
-
           <div class="product-info">
 
             <div class="product-name">
               ${escapeHtml(product.name)}
             </div>
-
 
             <div class="product-desc">
               ${escapeHtml(
@@ -861,34 +829,24 @@
               )}
             </div>
 
-
             <div class="price">
-
               ${formatBRL(product.price)}
-
               ${oldPrice}
-
             </div>
-
 
             <span class="tag">
               ${category}
             </span>
 
-
             <span class="tag">
-
               ${
                 product.active
                   ? "✅ Ativo"
                   : "❌ Inativo"
               }
-
             </span>
 
-
             <div class="actions">
-
 
               <button
                 class="btn-primary edit-product"
@@ -897,7 +855,6 @@
               >
                 ✏️ Editar
               </button>
-
 
               <button
                 class="${
@@ -909,15 +866,12 @@
                 data-id="${escapeHtml(product.id)}"
                 data-active="${product.active}"
               >
-
                 ${
                   product.active
                     ? "👁️ Desativar"
                     : "👁️ Ativar"
                 }
-
               </button>
-
 
               <button
                 class="btn-danger delete-product"
@@ -927,7 +881,6 @@
                 🗑️ Excluir
               </button>
 
-
             </div>
 
           </div>
@@ -935,31 +888,31 @@
         </article>
 
       `;
-
     }
 
 
     /* =========================================================
-       VERIFICAR ADMINISTRADOR
+       VERIFICAR ADMIN
        ========================================================= */
 
     async function checkAdmin() {
 
       try {
 
-        const {
-          data,
-          error
-        } =
+        const result =
           await supabaseClient.rpc(
             "is_admin"
           );
 
+        const data =
+          result.data;
+
+        const error =
+          result.error;
 
         if (error) {
           throw error;
         }
-
 
         if (data !== true) {
 
@@ -967,16 +920,13 @@
             .auth
             .signOut();
 
-
           $("loginScreen")
             .classList
             .remove("hidden");
 
-
           $("adminScreen")
             .classList
             .add("hidden");
-
 
           showStatus(
             "loginStatus",
@@ -984,27 +934,20 @@
             "error"
           );
 
-
           return false;
-
         }
-
 
         $("loginScreen")
           .classList
           .add("hidden");
 
-
         $("adminScreen")
           .classList
           .remove("hidden");
 
-
         await loadProducts();
 
-
         return true;
-
 
       } catch (error) {
 
@@ -1013,18 +956,14 @@
           error
         );
 
-
         showStatus(
           "loginStatus",
           "Não foi possível verificar o administrador.",
           "error"
         );
 
-
         return false;
-
       }
-
     }
 
 
@@ -1039,11 +978,9 @@
           .value
           .trim();
 
-
       const password =
         $("password")
           .value;
-
 
       if (!email || !password) {
 
@@ -1054,13 +991,10 @@
         );
 
         return;
-
       }
-
 
       const button =
         $("loginButton");
-
 
       setButtonBusy(
         button,
@@ -1068,27 +1002,21 @@
         "Entrando..."
       );
 
-
       try {
 
-        const {
-          error
-        } =
+        const result =
           await supabaseClient
             .auth
             .signInWithPassword({
-              email,
-              password
+              email: email,
+              password: password
             });
 
-
-        if (error) {
-          throw error;
+        if (result.error) {
+          throw result.error;
         }
 
-
         await checkAdmin();
-
 
       } catch (error) {
 
@@ -1097,13 +1025,11 @@
           error
         );
 
-
         showStatus(
           "loginStatus",
           "E-mail ou senha incorretos.",
           "error"
         );
-
 
       } finally {
 
@@ -1111,9 +1037,7 @@
           button,
           false
         );
-
       }
-
     }
 
 
@@ -1129,12 +1053,16 @@
           .auth
           .signOut();
 
-      } finally {
+      } catch (error) {
 
-        window.location.reload();
+        console.error(
+          "Erro ao sair:",
+          error
+        );
 
       }
 
+      window.location.reload();
     }
 
 
@@ -1147,17 +1075,12 @@
       const list =
         $("productList");
 
-
       list.innerHTML =
         '<div class="loading">Carregando produtos...</div>';
 
-
       try {
 
-        const {
-          data,
-          error
-        } =
+        const result =
           await supabaseClient
             .from("products")
             .select("*")
@@ -1166,3 +1089,880 @@
               {
                 ascending: true
               }
+            )
+            .order(
+              "sort_order",
+              {
+                ascending: true
+              }
+            )
+            .order(
+              "name",
+              {
+                ascending: true
+              }
+            );
+
+        const data =
+          result.data;
+
+        const error =
+          result.error;
+
+        if (error) {
+          throw error;
+        }
+
+        productsCache =
+          Array.isArray(data)
+            ? data
+            : [];
+
+        if (
+          productsCache.length === 0
+        ) {
+
+          list.innerHTML =
+            '<div class="loading">Nenhum produto cadastrado.</div>';
+
+          return;
+        }
+
+        list.innerHTML =
+          productsCache
+            .map(productCard)
+            .join("");
+
+      } catch (error) {
+
+        console.error(
+          "Erro ao carregar produtos:",
+          error
+        );
+
+        list.innerHTML =
+          '<div class="loading">Erro ao carregar produtos.</div>';
+
+        showStatus(
+          "globalStatus",
+          "Erro ao carregar produtos.",
+          "error"
+        );
+      }
+    }
+
+
+    /* =========================================================
+       PRÉ-VISUALIZAÇÃO DA IMAGEM
+       ========================================================= */
+
+    function previewImage(event) {
+
+      const file =
+        event.target.files &&
+        event.target.files[0];
+
+      const preview =
+        $("preview");
+
+      preview.innerHTML = "";
+
+      if (!file) {
+        return;
+      }
+
+      if (
+        !file.type.startsWith("image/")
+      ) {
+
+        event.target.value = "";
+
+        showStatus(
+          "globalStatus",
+          "Selecione uma imagem válida.",
+          "error"
+        );
+
+        return;
+      }
+
+      const url =
+        URL.createObjectURL(file);
+
+      const image =
+        document.createElement("img");
+
+      image.src = url;
+
+      image.alt =
+        "Pré-visualização da foto";
+
+      image.onload =
+        function () {
+          URL.revokeObjectURL(url);
+        };
+
+      preview.appendChild(image);
+    }
+
+
+    /* =========================================================
+       LIMPAR FORMULÁRIO
+       ========================================================= */
+
+    function clearForm() {
+
+      editingProduct = null;
+
+      $("productId").value = "";
+
+      $("name").value = "";
+
+      $("description").value = "";
+
+      $("price").value = "";
+
+      $("oldPrice").value = "";
+
+      $("category").value = "garrafa";
+
+      $("sortOrder").value = "0";
+
+      $("active").checked = true;
+
+      $("image").value = "";
+
+      $("preview").innerHTML = "";
+
+      $("formTitle").textContent =
+        "➕ Novo produto";
+
+      $("cancelEdit")
+        .classList
+        .add("hidden");
+    }
+
+
+    /* =========================================================
+       EDITAR PRODUTO
+       ========================================================= */
+
+    function editProduct(id) {
+
+      const product =
+        productsCache.find(
+          function (item) {
+            return item.id === id;
+          }
+        );
+
+      if (!product) {
+
+        showStatus(
+          "globalStatus",
+          "Produto não encontrado.",
+          "error"
+        );
+
+        return;
+      }
+
+      editingProduct =
+        product;
+
+      $("productId").value =
+        product.id || "";
+
+      $("name").value =
+        product.name || "";
+
+      $("description").value =
+        product.description || "";
+
+      $("price").value =
+        product.price ?? "";
+
+      $("oldPrice").value =
+        product.old_price ?? "";
+
+      $("category").value =
+        product.category || "garrafa";
+
+      $("sortOrder").value =
+        product.sort_order ?? 0;
+
+      $("active").checked =
+        product.active !== false;
+
+      $("image").value = "";
+
+      $("preview").innerHTML = "";
+
+      if (product.image_url) {
+
+        const image =
+          document.createElement("img");
+
+        image.src =
+          product.image_url;
+
+        image.alt =
+          "Foto atual do produto";
+
+        image.onerror =
+          function () {
+            image.src =
+              FALLBACK_IMAGE;
+          };
+
+        $("preview")
+          .appendChild(image);
+      }
+
+      $("formTitle").textContent =
+        "✏️ Editar produto";
+
+      $("cancelEdit")
+        .classList
+        .remove("hidden");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+
+    /* =========================================================
+       SALVAR PRODUTO
+       ========================================================= */
+
+    async function saveProduct() {
+
+      const id =
+        $("productId")
+          .value
+          .trim();
+
+      const name =
+        $("name")
+          .value
+          .trim();
+
+      const description =
+        $("description")
+          .value
+          .trim();
+
+      const price =
+        Number.parseFloat(
+          $("price").value
+        );
+
+      const oldPriceValue =
+        $("oldPrice")
+          .value
+          .trim();
+
+      const oldPrice =
+        oldPriceValue === ""
+          ? null
+          : Number.parseFloat(
+              oldPriceValue
+            );
+
+      const category =
+        $("category").value;
+
+      const sortOrder =
+        Number.parseInt(
+          $("sortOrder").value || "0",
+          10
+        );
+
+      const active =
+        $("active").checked;
+
+      const imageFile =
+        $("image").files[0] || null;
+
+
+      /* =========================
+         VALIDAÇÕES
+         ========================= */
+
+      if (!name) {
+
+        showStatus(
+          "globalStatus",
+          "Digite o nome do produto.",
+          "error"
+        );
+
+        return;
+      }
+
+      if (
+        !Number.isFinite(price) ||
+        price < 0
+      ) {
+
+        showStatus(
+          "globalStatus",
+          "Digite um preço válido.",
+          "error"
+        );
+
+        return;
+      }
+
+      if (
+        oldPrice !== null &&
+        (
+          !Number.isFinite(oldPrice) ||
+          oldPrice < 0
+        )
+      ) {
+
+        showStatus(
+          "globalStatus",
+          "Digite um preço antigo válido ou deixe vazio.",
+          "error"
+        );
+
+        return;
+      }
+
+      if (
+        !Number.isInteger(sortOrder) ||
+        sortOrder < 0
+      ) {
+
+        showStatus(
+          "globalStatus",
+          "A ordem deve ser um número inteiro maior ou igual a zero.",
+          "error"
+        );
+
+        return;
+      }
+
+      if (
+        category !== "garrafa" &&
+        category !== "bebida"
+      ) {
+
+        showStatus(
+          "globalStatus",
+          "Categoria inválida.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      const button =
+        $("saveButton");
+
+      setButtonBusy(
+        button,
+        true,
+        "Salvando..."
+      );
+
+
+      try {
+
+        let imageUrl =
+          editingProduct?.image_url ||
+          null;
+
+
+        /* =========================
+           UPLOAD DA IMAGEM
+           ========================= */
+
+        if (imageFile) {
+
+          const originalName =
+            imageFile.name || "";
+
+          const parts =
+            originalName.split(".");
+
+          let extension =
+            parts.length > 1
+              ? parts.pop()
+              : "jpg";
+
+          extension =
+            extension
+              .toLowerCase()
+              .replace(
+                /[^a-z0-9]/g,
+                ""
+              );
+
+          if (!extension) {
+            extension = "jpg";
+          }
+
+          const randomPart =
+            typeof crypto !== "undefined" &&
+            typeof crypto.randomUUID === "function"
+              ? crypto.randomUUID()
+              : String(Date.now());
+
+          const filePath =
+            Date.now() +
+            "-" +
+            randomPart +
+            "." +
+            extension;
+
+
+          const uploadResult =
+            await supabaseClient
+              .storage
+              .from("product-images")
+              .upload(
+                filePath,
+                imageFile,
+                {
+                  cacheControl: "3600",
+                  upsert: false,
+                  contentType:
+                    imageFile.type || undefined
+                }
+              );
+
+
+          if (uploadResult.error) {
+            throw uploadResult.error;
+          }
+
+
+          const publicUrlResult =
+            supabaseClient
+              .storage
+              .from("product-images")
+              .getPublicUrl(
+                filePath
+              );
+
+
+          imageUrl =
+            publicUrlResult
+              ?.data
+              ?.publicUrl ||
+            imageUrl;
+        }
+
+
+        /* =========================
+           DADOS
+           ========================= */
+
+        const productData = {
+
+          name: name,
+
+          description: description,
+
+          price: price,
+
+          old_price: oldPrice,
+
+          category: category,
+
+          image_url: imageUrl,
+
+          active: active,
+
+          sort_order: sortOrder,
+
+          updated_at:
+            new Date().toISOString()
+
+        };
+
+
+        /* =========================
+           EDITAR
+           ========================= */
+
+        if (id) {
+
+          const result =
+            await supabaseClient
+              .from("products")
+              .update(productData)
+              .eq("id", id);
+
+          if (result.error) {
+            throw result.error;
+          }
+
+          showStatus(
+            "globalStatus",
+            "Produto atualizado com sucesso! ✅"
+          );
+
+        }
+
+
+        /* =========================
+           CRIAR
+           ========================= */
+
+        else {
+
+          const result =
+            await supabaseClient
+              .from("products")
+              .insert(productData);
+
+          if (result.error) {
+            throw result.error;
+          }
+
+          showStatus(
+            "globalStatus",
+            "Produto criado com sucesso! 🎉"
+          );
+        }
+
+
+        clearForm();
+
+        await loadProducts();
+
+
+      } catch (error) {
+
+        console.error(
+          "Erro ao salvar produto:",
+          error
+        );
+
+        showStatus(
+          "globalStatus",
+          error?.message
+            ? "Erro ao salvar produto: " +
+              error.message
+            : "Erro ao salvar produto.",
+          "error"
+        );
+
+      } finally {
+
+        setButtonBusy(
+          button,
+          false
+        );
+      }
+    }
+
+
+    /* =========================================================
+       ATIVAR / DESATIVAR
+       ========================================================= */
+
+    async function toggleProduct(
+      id,
+      currentActive
+    ) {
+
+      const nextActive =
+        !currentActive;
+
+      try {
+
+        const result =
+          await supabaseClient
+            .from("products")
+            .update({
+              active: nextActive,
+              updated_at:
+                new Date().toISOString()
+            })
+            .eq("id", id);
+
+        if (result.error) {
+          throw result.error;
+        }
+
+        showStatus(
+          "globalStatus",
+          nextActive
+            ? "Produto ativado. ✅"
+            : "Produto desativado. ✅"
+        );
+
+        await loadProducts();
+
+      } catch (error) {
+
+        console.error(
+          "Erro ao alterar status:",
+          error
+        );
+
+        showStatus(
+          "globalStatus",
+          "Não foi possível alterar o status do produto.",
+          "error"
+        );
+      }
+    }
+
+
+    /* =========================================================
+       EXCLUIR PRODUTO
+       ========================================================= */
+
+    async function deleteProduct(id) {
+
+      const product =
+        productsCache.find(
+          function (item) {
+            return item.id === id;
+          }
+        );
+
+      const name =
+        product?.name ||
+        "este produto";
+
+      const confirmed =
+        window.confirm(
+          'Excluir "' +
+          name +
+          '"? Esta ação não pode ser desfeita.'
+        );
+
+      if (!confirmed) {
+        return;
+      }
+
+      try {
+
+        const result =
+          await supabaseClient
+            .from("products")
+            .delete()
+            .eq("id", id);
+
+        if (result.error) {
+          throw result.error;
+        }
+
+        if (
+          editingProduct?.id === id
+        ) {
+          clearForm();
+        }
+
+        showStatus(
+          "globalStatus",
+          "Produto excluído com sucesso. 🗑️"
+        );
+
+        await loadProducts();
+
+      } catch (error) {
+
+        console.error(
+          "Erro ao excluir produto:",
+          error
+        );
+
+        showStatus(
+          "globalStatus",
+          "Não foi possível excluir o produto.",
+          "error"
+        );
+      }
+    }
+
+
+    /* =========================================================
+       EVENTOS
+       ========================================================= */
+
+    $("loginButton")
+      .addEventListener(
+        "click",
+        login
+      );
+
+
+    $("logoutButton")
+      .addEventListener(
+        "click",
+        logout
+      );
+
+
+    $("saveButton")
+      .addEventListener(
+        "click",
+        saveProduct
+      );
+
+
+    $("clearButton")
+      .addEventListener(
+        "click",
+        clearForm
+      );
+
+
+    $("cancelEdit")
+      .addEventListener(
+        "click",
+        clearForm
+      );
+
+
+    $("refreshButton")
+      .addEventListener(
+        "click",
+        loadProducts
+      );
+
+
+    $("image")
+      .addEventListener(
+        "change",
+        previewImage
+      );
+
+
+    /* =========================================================
+       BOTÕES DA LISTA
+       ========================================================= */
+
+    $("productList")
+      .addEventListener(
+        "click",
+        function (event) {
+
+          const editButton =
+            event.target.closest(
+              ".edit-product"
+            );
+
+          if (editButton) {
+
+            editProduct(
+              editButton.dataset.id
+            );
+
+            return;
+          }
+
+
+          const toggleButton =
+            event.target.closest(
+              ".toggle-product"
+            );
+
+          if (toggleButton) {
+
+            toggleProduct(
+              toggleButton.dataset.id,
+              toggleButton.dataset.active === "true"
+            );
+
+            return;
+          }
+
+
+          const deleteButton =
+            event.target.closest(
+              ".delete-product"
+            );
+
+          if (deleteButton) {
+
+            deleteProduct(
+              deleteButton.dataset.id
+            );
+          }
+
+        }
+      );
+
+
+    /* =========================================================
+       ENTER NO LOGIN
+       ========================================================= */
+
+    $("password")
+      .addEventListener(
+        "keydown",
+        function (event) {
+
+          if (
+            event.key === "Enter"
+          ) {
+
+            login();
+
+          }
+
+        }
+      );
+
+
+    /* =========================================================
+       INICIALIZAÇÃO
+       ========================================================= */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      async function () {
+
+        try {
+
+          const result =
+            await supabaseClient
+              .auth
+              .getSession();
+
+          if (result.error) {
+            throw result.error;
+          }
+
+          if (
+            result.data &&
+            result.data.session
+          ) {
+
+            await checkAdmin();
+
+          }
+
+        } catch (error) {
+
+          console.error(
+            "Erro ao iniciar o painel:",
+            error
+          );
+
+          showStatus(
+            "loginStatus",
+            "Não foi possível iniciar o painel administrativo.",
+            "error"
+          );
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
