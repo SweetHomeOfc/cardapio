@@ -6,7 +6,6 @@
 
   <title>Admin — Sweet Home Mousse's</title>
 
-  <!-- SUPABASE -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -21,137 +20,9 @@
       color: #222;
     }
 
-    button {
-      border: 0;
-      border-radius: 10px;
-      padding: 11px 16px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    button:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-    }
-
-    .btn-primary {
-      background: #111;
-      color: white;
-    }
-
-    .btn-success {
-      background: #198754;
-      color: white;
-    }
-
-    .btn-danger {
-      background: #dc3545;
-      color: white;
-    }
-
-    .btn-secondary {
-      background: #ddd;
-      color: #222;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 3px 15px rgba(0,0,0,.06);
-    }
-
-    /* LOGIN */
-
-    .login {
-      width: calc(100% - 30px);
-      max-width: 420px;
-      margin: 70px auto;
-    }
-
-    .login h1 {
-      margin-top: 0;
-      font-size: 24px;
-    }
-
-    .login p {
-      color: #666;
-      line-height: 1.5;
-    }
-
-    /* CAMPOS */
-
-    .field {
-      margin-bottom: 15px;
-    }
-
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 6px;
-      font-size: 14px;
-    }
-
-    input,
-    textarea,
-    select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 15px;
-      background: white;
-    }
-
-    textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-    }
-
-    /* STATUS */
-
-    .status {
-      padding: 12px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      display: none;
-    }
-
-    .status.success {
-      display: block;
-      background: #d1e7dd;
-      color: #0f5132;
-    }
-
-    .status.error {
-      display: block;
-      background: #f8d7da;
-      color: #842029;
-    }
-
-    /* HEADER */
-
     header {
       background: #111;
-      color: white;
+      color: #fff;
       padding: 18px 20px;
       position: sticky;
       top: 0;
@@ -174,12 +45,44 @@
     }
 
     header small {
+      opacity: .7;
       display: block;
       margin-top: 4px;
-      opacity: .7;
     }
 
-    /* CONTEÚDO */
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 16px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: #111;
+      color: #fff;
+    }
+
+    .btn-success {
+      background: #198754;
+      color: #fff;
+    }
+
+    .btn-danger {
+      background: #dc3545;
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: #ddd;
+      color: #222;
+    }
 
     main {
       max-width: 1100px;
@@ -187,17 +90,61 @@
       padding: 0 15px 50px;
     }
 
-    .section-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.06);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    .login {
+      max-width: 420px;
+      margin: 70px auto;
+    }
+
+    .field {
       margin-bottom: 15px;
     }
 
-    .section-title h2 {
-      margin: 0;
-      font-size: 20px;
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 15px;
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
     }
 
     .actions {
@@ -206,8 +153,6 @@
       flex-wrap: wrap;
       margin-top: 15px;
     }
-
-    /* PRODUTOS */
 
     .product-list {
       display: grid;
@@ -224,13 +169,9 @@
       background: #fff;
     }
 
-    .product.inactive {
-      opacity: .55;
-    }
-
     .product img {
-      width: 110px;
-      height: 110px;
+      width: 100px;
+      height: 100px;
       object-fit: cover;
       border-radius: 12px;
       background: #eee;
@@ -244,7 +185,7 @@
 
     .product-name {
       font-weight: bold;
-      font-size: 17px;
+      font-size: 16px;
       margin-bottom: 6px;
     }
 
@@ -253,6 +194,7 @@
       font-size: 13px;
       line-height: 1.4;
       margin-bottom: 8px;
+      white-space: pre-wrap;
     }
 
     .price {
@@ -276,18 +218,31 @@
       margin-top: 7px;
     }
 
-    /* FOTO */
-
-    .preview {
-      margin-top: 10px;
+    .inactive {
+      opacity: .55;
     }
 
-    .preview img {
-      width: 140px;
-      height: 140px;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 1px solid #ddd;
+    .hidden {
+      display: none !important;
+    }
+
+    .status {
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      display: none;
+    }
+
+    .status.success {
+      display: block;
+      background: #d1e7dd;
+      color: #0f5132;
+    }
+
+    .status.error {
+      display: block;
+      background: #f8d7da;
+      color: #842029;
     }
 
     .loading {
@@ -296,8 +251,27 @@
       color: #777;
     }
 
-    @media (max-width: 750px) {
+    .preview {
+      margin-top: 10px;
+    }
 
+    .preview img {
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    @media (max-width: 750px) {
       .grid,
       .grid-3,
       .product-list {
@@ -310,7 +284,7 @@
 
       .product img {
         width: 100%;
-        height: 200px;
+        height: 180px;
       }
 
       header .top {
@@ -323,16 +297,16 @@
 
 <body>
 
-  <!-- =====================================================
+  <!-- =========================
        LOGIN
-       ===================================================== -->
+       ========================= -->
 
   <section id="loginScreen" class="login card">
 
-    <h1>🔐 Administração</h1>
+    <h2>🔐 Administração</h2>
 
     <p>
-      Entre com o e-mail e a senha do administrador.
+      Entre com o e-mail e senha do administrador.
     </p>
 
     <div id="loginStatus" class="status"></div>
@@ -344,7 +318,8 @@
         id="email"
         type="email"
         placeholder="Seu e-mail"
-        autocomplete="email">
+        autocomplete="username"
+      >
     </div>
 
     <div class="field">
@@ -354,25 +329,25 @@
         id="password"
         type="password"
         placeholder="Sua senha"
-        autocomplete="current-password">
+        autocomplete="current-password"
+      >
     </div>
 
     <button
       id="loginButton"
       class="btn-primary"
+      type="button"
       style="width:100%;"
-      onclick="login()">
-
+    >
       Entrar
-
     </button>
 
   </section>
 
 
-  <!-- =====================================================
-       PAINEL ADMIN
-       ===================================================== -->
+  <!-- =========================
+       PAINEL ADMINISTRATIVO
+       ========================= -->
 
   <div id="adminScreen" class="hidden">
 
@@ -382,18 +357,15 @@
 
         <div>
           <h1>🍰 Sweet Home Mousse's</h1>
-
-          <small>
-            Painel administrativo
-          </small>
+          <small>Painel administrativo</small>
         </div>
 
         <button
+          id="logoutButton"
           class="btn-secondary"
-          onclick="logout()">
-
+          type="button"
+        >
           Sair
-
         </button>
 
       </div>
@@ -406,9 +378,9 @@
       <div id="globalStatus" class="status"></div>
 
 
-      <!-- =================================================
+      <!-- =========================
            FORMULÁRIO
-           ================================================= -->
+           ========================= -->
 
       <section class="card">
 
@@ -421,10 +393,9 @@
           <button
             id="cancelEdit"
             class="btn-secondary hidden"
-            onclick="cancelEdit()">
-
+            type="button"
+          >
             Cancelar edição
-
           </button>
 
         </div>
@@ -432,7 +403,8 @@
 
         <input
           type="hidden"
-          id="productId">
+          id="productId"
+        >
 
 
         <div class="grid">
@@ -446,7 +418,8 @@
             <input
               id="name"
               type="text"
-              placeholder="Ex.: Tentação de Morango">
+              placeholder="Ex.: Tentação de Morango"
+            >
 
           </div>
 
@@ -482,7 +455,8 @@
 
           <textarea
             id="description"
-            placeholder="Descrição do produto"></textarea>
+            placeholder="Descrição do produto"
+          ></textarea>
 
         </div>
 
@@ -500,7 +474,8 @@
               type="number"
               min="0"
               step="0.01"
-              placeholder="20.00">
+              placeholder="20.00"
+            >
 
           </div>
 
@@ -516,7 +491,8 @@
               type="number"
               min="0"
               step="0.01"
-              placeholder="23.00">
+              placeholder="23.00"
+            >
 
           </div>
 
@@ -532,7 +508,8 @@
               type="number"
               min="0"
               step="1"
-              value="0">
+              value="0"
+            >
 
           </div>
 
@@ -549,12 +526,12 @@
             id="image"
             type="file"
             accept="image/*"
-            onchange="previewImage(event)">
+          >
 
           <div
             id="preview"
-            class="preview">
-          </div>
+            class="preview"
+          ></div>
 
         </div>
 
@@ -567,7 +544,8 @@
               id="active"
               type="checkbox"
               checked
-              style="width:auto;margin-right:7px;">
+              style="width:auto;margin-right:7px;"
+            >
 
             Produto ativo no cardápio
 
@@ -579,20 +557,20 @@
         <div class="actions">
 
           <button
+            id="saveButton"
             class="btn-success"
-            onclick="saveProduct()">
-
+            type="button"
+          >
             💾 Salvar produto
-
           </button>
 
 
           <button
+            id="clearButton"
             class="btn-secondary"
-            onclick="clearForm()">
-
+            type="button"
+          >
             Limpar
-
           </button>
 
         </div>
@@ -600,9 +578,9 @@
       </section>
 
 
-      <!-- =================================================
-           LISTA DE PRODUTOS
-           ================================================= -->
+      <!-- =========================
+           PRODUTOS
+           ========================= -->
 
       <section class="card">
 
@@ -613,11 +591,11 @@
           </h2>
 
           <button
+            id="refreshButton"
             class="btn-primary"
-            onclick="loadProducts()">
-
+            type="button"
+          >
             🔄 Atualizar
-
           </button>
 
         </div>
@@ -625,7 +603,8 @@
 
         <div
           id="productList"
-          class="product-list">
+          class="product-list"
+        >
 
           <div class="loading">
             Carregando produtos...
@@ -640,21 +619,40 @@
   </div>
 
 
-  <!-- =====================================================
+  <!-- =========================
        JAVASCRIPT
-       ===================================================== -->
+       ========================= -->
 
   <script>
 
-    /* =====================================================
+    "use strict";
+
+
+    /* =========================================================
        CONFIGURAÇÃO DO SUPABASE
-       ===================================================== */
+
+       IMPORTANTE:
+       ESTA É A ÚNICA CONFIGURAÇÃO DO SUPABASE NO ARQUIVO.
+       ========================================================= */
 
     const SUPABASE_URL =
       "https://yrhpvadtscugkcqnmmda.supabase.co";
 
     const SUPABASE_PUBLISHABLE_KEY =
       "sb_publishable_SArSO4fHx4-elZZuO2C-ag_4pz5hSQZ";
+
+
+    if (
+      !window.supabase ||
+      typeof window.supabase.createClient !== "function"
+    ) {
+
+      throw new Error(
+        "A biblioteca do Supabase não foi carregada."
+      );
+
+    }
+
 
     const supabaseClient =
       window.supabase.createClient(
@@ -663,45 +661,26 @@
       );
 
 
+    const FALLBACK_IMAGE =
+      "https://placehold.co/300x300?text=Sem+foto";
+
+
     let editingProduct = null;
 
-
-    /* =====================================================
-       INICIALIZAÇÃO
-       ===================================================== */
-
-    document.addEventListener(
-      "DOMContentLoaded",
-      async () => {
-
-        try {
-
-          const {
-            data: {
-              session
-            }
-          } = await supabaseClient.auth.getSession();
+    let productsCache = [];
 
 
-          if (session) {
+    /* =========================================================
+       ATALHO PARA ELEMENTOS
+       ========================================================= */
 
-            await checkAdmin();
-
-          }
-
-        } catch (error) {
-
-          console.error(error);
-
-        }
-
-      }
-    );
+    const $ = (id) =>
+      document.getElementById(id);
 
 
-    /* =====================================================
+    /* =========================================================
        MENSAGENS
-       ===================================================== */
+       ========================================================= */
 
     function showStatus(
       elementId,
@@ -710,111 +689,259 @@
     ) {
 
       const element =
-        document.getElementById(elementId);
+        $(elementId);
 
-      if (!element) return;
+      if (!element) {
+        return;
+      }
 
-      element.textContent = message;
+
+      element.textContent =
+        message;
 
       element.className =
         "status " + type;
 
+
+      window.clearTimeout(
+        element._statusTimer
+      );
+
+
+      element._statusTimer =
+        window.setTimeout(
+          () => {
+
+            element.className =
+              "status";
+
+          },
+          5000
+        );
+
     }
 
 
-    /* =====================================================
-       LOGIN
-       ===================================================== */
+    /* =========================================================
+       BOTÃO DE CARREGAMENTO
+       ========================================================= */
 
-    async function login() {
+    function setButtonBusy(
+      button,
+      busy,
+      busyText
+    ) {
 
-      const email =
-        document
-          .getElementById("email")
-          .value
-          .trim();
-
-      const password =
-        document
-          .getElementById("password")
-          .value;
-
-      const button =
-        document.getElementById("loginButton");
-
-
-      if (!email || !password) {
-
-        showStatus(
-          "loginStatus",
-          "Preencha o e-mail e a senha.",
-          "error"
-        );
-
+      if (!button) {
         return;
-
       }
 
 
-      button.disabled = true;
+      if (busy) {
 
-      button.textContent =
-        "Entrando...";
-
-
-      try {
-
-        const {
-          error
-        } =
-          await supabaseClient.auth.signInWithPassword({
-            email,
-            password
-          });
-
-
-        if (error) {
-
-          console.error(error);
-
-          showStatus(
-            "loginStatus",
-            "E-mail ou senha incorretos.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        await checkAdmin();
-
-      } catch (error) {
-
-        console.error(error);
-
-        showStatus(
-          "loginStatus",
-          "Erro ao entrar. Tente novamente.",
-          "error"
-        );
-
-      } finally {
-
-        button.disabled = false;
+        button.dataset.originalText =
+          button.textContent;
 
         button.textContent =
-          "Entrar";
+          busyText;
+
+        button.disabled =
+          true;
+
+      } else {
+
+        button.textContent =
+          button.dataset.originalText ||
+          button.textContent;
+
+        button.disabled =
+          false;
 
       }
 
     }
 
 
-    /* =====================================================
-       VERIFICAR ADMIN
-       ===================================================== */
+    /* =========================================================
+       ESCAPAR HTML
+       ========================================================= */
+
+    function escapeHtml(value) {
+
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =========================================================
+       FORMATAR PREÇO
+       ========================================================= */
+
+    function formatBRL(value) {
+
+      return Number(value || 0)
+        .toLocaleString(
+          "pt-BR",
+          {
+            style: "currency",
+            currency: "BRL"
+          }
+        );
+
+    }
+
+
+    /* =========================================================
+       CARD DO PRODUTO
+       ========================================================= */
+
+    function productCard(product) {
+
+      const image =
+        product.image_url ||
+        FALLBACK_IMAGE;
+
+
+      const category =
+        product.category === "garrafa"
+          ? "🍰 Tentações em Garrafa"
+          : "🥤 Bebida";
+
+
+      const inactive =
+        product.active
+          ? ""
+          : "inactive";
+
+
+      let oldPrice = "";
+
+
+      if (
+        product.old_price !== null &&
+        product.old_price !== undefined &&
+        product.old_price !== ""
+      ) {
+
+        oldPrice = `
+          <span class="old-price">
+            ${formatBRL(product.old_price)}
+          </span>
+        `;
+
+      }
+
+
+      return `
+
+        <article class="product ${inactive}">
+
+          <img
+            src="${escapeHtml(image)}"
+            alt="${escapeHtml(product.name)}"
+            onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'"
+          >
+
+
+          <div class="product-info">
+
+            <div class="product-name">
+              ${escapeHtml(product.name)}
+            </div>
+
+
+            <div class="product-desc">
+              ${escapeHtml(
+                product.description || ""
+              )}
+            </div>
+
+
+            <div class="price">
+
+              ${formatBRL(product.price)}
+
+              ${oldPrice}
+
+            </div>
+
+
+            <span class="tag">
+              ${category}
+            </span>
+
+
+            <span class="tag">
+
+              ${
+                product.active
+                  ? "✅ Ativo"
+                  : "❌ Inativo"
+              }
+
+            </span>
+
+
+            <div class="actions">
+
+
+              <button
+                class="btn-primary edit-product"
+                type="button"
+                data-id="${escapeHtml(product.id)}"
+              >
+                ✏️ Editar
+              </button>
+
+
+              <button
+                class="${
+                  product.active
+                    ? "btn-secondary"
+                    : "btn-success"
+                } toggle-product"
+                type="button"
+                data-id="${escapeHtml(product.id)}"
+                data-active="${product.active}"
+              >
+
+                ${
+                  product.active
+                    ? "👁️ Desativar"
+                    : "👁️ Ativar"
+                }
+
+              </button>
+
+
+              <button
+                class="btn-danger delete-product"
+                type="button"
+                data-id="${escapeHtml(product.id)}"
+              >
+                🗑️ Excluir
+              </button>
+
+
+            </div>
+
+          </div>
+
+        </article>
+
+      `;
+
+    }
+
+
+    /* =========================================================
+       VERIFICAR ADMINISTRADOR
+       ========================================================= */
 
     async function checkAdmin() {
 
@@ -830,17 +957,26 @@
 
 
         if (error) {
-
-          console.error(error);
-
           throw error;
-
         }
 
 
         if (data !== true) {
 
-          await supabaseClient.auth.signOut();
+          await supabaseClient
+            .auth
+            .signOut();
+
+
+          $("loginScreen")
+            .classList
+            .remove("hidden");
+
+
+          $("adminScreen")
+            .classList
+            .add("hidden");
+
 
           showStatus(
             "loginStatus",
@@ -848,28 +984,35 @@
             "error"
           );
 
-          return;
+
+          return false;
 
         }
 
 
-        document
-          .getElementById("loginScreen")
+        $("loginScreen")
           .classList
           .add("hidden");
 
 
-        document
-          .getElementById("adminScreen")
+        $("adminScreen")
           .classList
           .remove("hidden");
 
 
         await loadProducts();
 
+
+        return true;
+
+
       } catch (error) {
 
-        console.error(error);
+        console.error(
+          "Erro ao verificar administrador:",
+          error
+        );
+
 
         showStatus(
           "loginStatus",
@@ -877,68 +1020,36 @@
           "error"
         );
 
+
+        return false;
+
       }
 
     }
 
 
-    /* =====================================================
-       LOGOUT
-       ===================================================== */
+    /* =========================================================
+       LOGIN
+       ========================================================= */
 
-    async function logout() {
+    async function login() {
 
-      await supabaseClient.auth.signOut();
-
-      location.reload();
-
-    }
-
-
-    /* =====================================================
-       CARREGAR PRODUTOS
-       ===================================================== */
-
-    async function loadProducts() {
-
-      const list =
-        document.getElementById(
-          "productList"
-        );
+      const email =
+        $("email")
+          .value
+          .trim();
 
 
-      list.innerHTML =
-        '<div class="loading">Carregando produtos...</div>';
+      const password =
+        $("password")
+          .value;
 
 
-      const {
-        data,
-        error
-      } =
-        await supabaseClient
-          .from("products")
-          .select("*")
-          .order("category", {
-            ascending: true
-          })
-          .order("sort_order", {
-            ascending: true
-          })
-          .order("name", {
-            ascending: true
-          });
-
-
-      if (error) {
-
-        console.error(error);
-
-        list.innerHTML =
-          '<div class="loading">Erro ao carregar produtos.</div>';
+      if (!email || !password) {
 
         showStatus(
-          "globalStatus",
-          "Erro ao carregar produtos.",
+          "loginStatus",
+          "Preencha o e-mail e a senha.",
           "error"
         );
 
@@ -947,202 +1058,111 @@
       }
 
 
-      if (!data || data.length === 0) {
+      const button =
+        $("loginButton");
 
-        list.innerHTML =
-          '<div class="loading">Nenhum produto cadastrado.</div>';
 
-        return;
+      setButtonBusy(
+        button,
+        true,
+        "Entrando..."
+      );
+
+
+      try {
+
+        const {
+          error
+        } =
+          await supabaseClient
+            .auth
+            .signInWithPassword({
+              email,
+              password
+            });
+
+
+        if (error) {
+          throw error;
+        }
+
+
+        await checkAdmin();
+
+
+      } catch (error) {
+
+        console.error(
+          "Erro no login:",
+          error
+        );
+
+
+        showStatus(
+          "loginStatus",
+          "E-mail ou senha incorretos.",
+          "error"
+        );
+
+
+      } finally {
+
+        setButtonBusy(
+          button,
+          false
+        );
 
       }
+
+    }
+
+
+    /* =========================================================
+       LOGOUT
+       ========================================================= */
+
+    async function logout() {
+
+      try {
+
+        await supabaseClient
+          .auth
+          .signOut();
+
+      } finally {
+
+        window.location.reload();
+
+      }
+
+    }
+
+
+    /* =========================================================
+       CARREGAR PRODUTOS
+       ========================================================= */
+
+    async function loadProducts() {
+
+      const list =
+        $("productList");
 
 
       list.innerHTML =
-        data
-          .map(productCard)
-          .join("");
-
-    }
+        '<div class="loading">Carregando produtos...</div>';
 
 
-    /* =====================================================
-       CARD DO PRODUTO
-       ===================================================== */
+      try {
 
-    function productCard(product) {
-
-      const image =
-        product.image_url ||
-        "https://placehold.co/300x300?text=Sem+foto";
-
-
-      const category =
-        product.category === "garrafa"
-          ? "🍰 Tentações em Garrafa"
-          : "🥤 Bebida";
-
-
-      const price =
-        Number(product.price || 0)
-          .toLocaleString(
-            "pt-BR",
-            {
-              style: "currency",
-              currency: "BRL"
-            }
-          );
-
-
-      let oldPrice = "";
-
-
-      if (
-        product.old_price !== null &&
-        product.old_price !== undefined &&
-        product.old_price !== ""
-      ) {
-
-        oldPrice =
-          `
-          <span class="old-price">
-            ${
-              Number(product.old_price)
-                .toLocaleString(
-                  "pt-BR",
-                  {
-                    style: "currency",
-                    currency: "BRL"
-                  }
-                )
-            }
-          </span>
-          `;
-
-      }
-
-
-      const inactive =
-        product.active
-          ? ""
-          : "inactive";
-
-
-      return `
-
-        <div class="product ${inactive}">
-
-          <img
-            src="${escapeHtml(image)}"
-            alt="${escapeHtml(product.name)}"
-            onerror="this.src='https://placehold.co/300x300?text=Sem+foto'">
-
-
-          <div class="product-info">
-
-            <div class="product-name">
-              ${escapeHtml(product.name)}
-            </div>
-
-
-            <div class="product-desc">
-              ${escapeHtml(product.description || "")}
-            </div>
-
-
-            <div class="price">
-              ${price}
-              ${oldPrice}
-            </div>
-
-
-            <span class="tag">
-              ${category}
-            </span>
-
-
-            <span class="tag">
-              ${
-                product.active
-                  ? "✅ Ativo"
-                  : "❌ Inativo"
+        const {
+          data,
+          error
+        } =
+          await supabaseClient
+            .from("products")
+            .select("*")
+            .order(
+              "category",
+              {
+                ascending: true
               }
-            </span>
-
-
-            <div class="actions">
-
-              <button
-                class="btn-primary"
-                onclick="editProduct('${product.id}')">
-
-                ✏️ Editar
-
-              </button>
-
-
-              <button
-                class="${
-                  product.active
-                    ? "btn-secondary"
-                    : "btn-success"
-                }"
-                onclick="toggleProduct(
-                  '${product.id}',
-                  ${product.active}
-                )">
-
-                ${
-                  product.active
-                    ? "👁️ Desativar"
-                    : "👁️ Ativar"
-                }
-
-              </button>
-
-
-              <button
-                class="btn-danger"
-                onclick="deleteProduct(
-                  '${product.id}',
-                  '${escapeJs(product.name)}'
-                )">
-
-                🗑️ Excluir
-
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      `;
-
-    }
-
-
-    /* =====================================================
-       SALVAR PRODUTO
-       ===================================================== */
-
-    async function saveProduct() {
-
-      const id =
-        document
-          .getElementById("productId")
-          .value;
-
-
-      const name =
-        document
-          .getElementById("name")
-          .value
-          .trim();
-
-
-      const description =
-        document
-          .getElementById("description")
-          .value
-          .trim();
