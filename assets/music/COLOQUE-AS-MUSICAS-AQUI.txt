@@ -1,0 +1,10 @@
+Coloque nesta pasta os arquivos de áudio que você tem autorização para usar no site:
+
+pompeli.mp3
+happier.mp3
+
+O site também tenta aceitar:
+pompeli.mp4
+happier.mp4
+
+Quando os arquivos estiverem aqui, o botão 🎵 toca Pompeli, depois Happier, e repete.
