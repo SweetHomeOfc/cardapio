@@ -296,7 +296,11 @@
         align-items: flex-start;
       }
     }
-  </style>
+  
+.coupon-list{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.coupon-card{border:1px solid #ddd;border-radius:14px;padding:14px;background:#fff}.coupon-card.inactive{opacity:.55}.coupon-code{font-size:18px;font-weight:900;letter-spacing:.5px}.coupon-meta{font-size:12px;color:#666;line-height:1.5;margin-top:7px}.mini-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.mini-actions button{padding:8px 11px;font-size:12px}.syncNote{font-size:12px;color:#666;background:#f4f4f4;border-radius:10px;padding:10px;margin-bottom:14px}
+@media(max-width:750px){.coupon-list{grid-template-columns:1fr}}
+
+</style>
 </head>
 
 <body>
@@ -579,6 +583,36 @@
       </section>
 
 
+
+      <!-- =========================
+           CUPONS
+           ========================= -->
+      <section class="card">
+        <div class="section-title">
+          <h2>🎟️ Cupons de desconto</h2>
+          <button id="refreshCouponsButton" class="btn-primary" type="button">🔄 Atualizar</button>
+        </div>
+        <div class="syncNote">Os cupons salvos aqui ficam no Supabase e podem ser usados por qualquer cliente que acessar o cardápio público.</div>
+        <div id="couponStatus" class="status"></div>
+        <div class="grid-3">
+          <div class="field"><label for="couponCode">Código *</label><input id="couponCode" maxlength="40" placeholder="Ex.: SWEET10"></div>
+          <div class="field"><label for="couponType">Tipo *</label><select id="couponType"><option value="percentage">Porcentagem (%)</option><option value="fixed">Valor fixo (R$)</option></select></div>
+          <div class="field"><label for="couponValue">Desconto *</label><input id="couponValue" type="number" min="0" step="0.01" placeholder="10"></div>
+        </div>
+        <div class="grid-3">
+          <div class="field"><label for="couponMinOrder">Pedido mínimo</label><input id="couponMinOrder" type="number" min="0" step="0.01" value="0" placeholder="0"></div>
+          <div class="field"><label for="couponExpires">Validade</label><input id="couponExpires" type="datetime-local"></div>
+          <div class="field"><label><input id="couponActive" type="checkbox" checked style="width:auto;margin-right:7px;">Cupom ativo</label></div>
+        </div>
+        <input type="hidden" id="couponId">
+        <div class="actions">
+          <button id="saveCouponButton" class="btn-success" type="button">💾 Salvar cupom</button>
+          <button id="clearCouponButton" class="btn-secondary" type="button">Limpar</button>
+        </div>
+        <hr style="border:0;border-top:1px solid #eee;margin:20px 0;">
+        <div id="couponList" class="coupon-list"><div class="loading">Carregando cupons...</div></div>
+      </section>
+
       <!-- =========================
            LISTA DE PRODUTOS
            ========================= -->
@@ -624,6 +658,7 @@
        JAVASCRIPT
        ========================= -->
 
+  <script src="supabase-config.js?v=12"></script>
   <script>
 
     "use strict";
@@ -633,17 +668,12 @@
        SUPABASE
        ========================================================= */
 
-    const SUPABASE_URL =
-      "https://yrhpvadtscugkcqnmmda.supabase.co";
-
-    const SUPABASE_PUBLISHABLE_KEY =
-      "sb_publishable_SArSO4fHx4-elZZuO2C-ag_4pz5hSQZ";
-
-    const supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-      );
+    const SUPABASE_URL = window.SUPABASE_URL;
+    const SUPABASE_PUBLISHABLE_KEY = window.SUPABASE_KEY;
+    if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
+      throw new Error("Supabase não configurado. Verifique supabase-config.js.");
+    }
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
 
     /* =========================================================
@@ -653,6 +683,8 @@
     let editingProduct = null;
 
     let productsCache = [];
+    let couponsCache = [];
+    let editingCoupon = null;
 
 
     const FALLBACK_IMAGE =
@@ -945,7 +977,7 @@
           .classList
           .remove("hidden");
 
-        await loadProducts();
+        await Promise.all([loadProducts(), loadCoupons()]);
 
         return true;
 
@@ -1151,6 +1183,138 @@
       }
     }
 
+
+
+    /* =========================================================
+       CUPONS
+       ========================================================= */
+    function formatDateTime(value) {
+      if (!value) return "Sem validade";
+      const d = new Date(value);
+      if (Number.isNaN(d.getTime())) return "Data inválida";
+      return d.toLocaleString("pt-BR");
+    }
+
+    function renderCoupons() {
+      const list = $("couponList");
+      if (!couponsCache.length) {
+        list.innerHTML = '<div class="loading">Nenhum cupom cadastrado.</div>';
+        return;
+      }
+      list.innerHTML = couponsCache.map(c => {
+        const value = c.discount_type === "percentage"
+          ? `${Number(c.discount_value)}%`
+          : Number(c.discount_value).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+        return `<article class="coupon-card ${c.active ? "" : "inactive"}">
+          <div class="coupon-code">🎟️ ${escapeHtml(c.code)}</div>
+          <div class="coupon-meta">
+            Desconto: <b>${value}</b><br>
+            Pedido mínimo: ${Number(c.min_order||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"})}<br>
+            Validade: ${formatDateTime(c.expires_at)}<br>
+            Status: ${c.active ? "Ativo" : "Inativo"}
+          </div>
+          <div class="mini-actions">
+            <button class="btn-primary edit-coupon" data-id="${escapeHtml(c.id)}">✏️ Editar</button>
+            <button class="btn-secondary toggle-coupon" data-id="${escapeHtml(c.id)}" data-active="${c.active}">${c.active ? "⏸️ Desativar" : "▶️ Ativar"}</button>
+            <button class="btn-danger delete-coupon" data-id="${escapeHtml(c.id)}">🗑️ Excluir</button>
+          </div>
+        </article>`;
+      }).join("");
+    }
+
+    async function loadCoupons() {
+      const list = $("couponList");
+      list.innerHTML = '<div class="loading">Carregando cupons...</div>';
+      try {
+        const result = await supabaseClient.from("coupons").select("*").order("created_at",{ascending:false});
+        if (result.error) throw result.error;
+        couponsCache = Array.isArray(result.data) ? result.data : [];
+        renderCoupons();
+      } catch (error) {
+        console.error("Erro ao carregar cupons:", error);
+        list.innerHTML = '<div class="loading">Não foi possível carregar os cupons. Execute supabase-coupons.sql no Supabase.</div>';
+        showStatus("couponStatus","A tabela de cupons ainda não está configurada no Supabase.","error");
+      }
+    }
+
+    function clearCouponForm() {
+      editingCoupon = null;
+      $("couponId").value = "";
+      $("couponCode").value = "";
+      $("couponType").value = "percentage";
+      $("couponValue").value = "";
+      $("couponMinOrder").value = "0";
+      $("couponExpires").value = "";
+      $("couponActive").checked = true;
+      $("saveCouponButton").textContent = "💾 Salvar cupom";
+    }
+
+    function editCoupon(id) {
+      const c = couponsCache.find(x => x.id === id);
+      if (!c) return;
+      editingCoupon = c;
+      $("couponId").value = c.id;
+      $("couponCode").value = c.code || "";
+      $("couponType").value = c.discount_type || "percentage";
+      $("couponValue").value = c.discount_value ?? "";
+      $("couponMinOrder").value = c.min_order ?? 0;
+      $("couponExpires").value = c.expires_at ? new Date(c.expires_at).toISOString().slice(0,16) : "";
+      $("couponActive").checked = c.active !== false;
+      $("saveCouponButton").textContent = "💾 Atualizar cupom";
+      $("couponCode").focus();
+    }
+
+    async function saveCoupon() {
+      const id = $("couponId").value.trim();
+      const code = $("couponCode").value.trim().toUpperCase();
+      const type = $("couponType").value;
+      const value = Number.parseFloat($("couponValue").value);
+      const minOrder = Number.parseFloat($("couponMinOrder").value || "0");
+      const expiresRaw = $("couponExpires").value;
+      const active = $("couponActive").checked;
+      if (!/^[A-Z0-9_-]{2,40}$/.test(code)) { showStatus("couponStatus","Use um código com 2 a 40 caracteres: letras, números, _ ou -.","error"); return; }
+      if (!Number.isFinite(value) || value <= 0) { showStatus("couponStatus","Digite um desconto válido.","error"); return; }
+      if (type === "percentage" && value > 100) { showStatus("couponStatus","Um desconto em porcentagem não pode passar de 100%.","error"); return; }
+      if (!Number.isFinite(minOrder) || minOrder < 0) { showStatus("couponStatus","Pedido mínimo inválido.","error"); return; }
+      const payload = {
+        code, discount_type:type, discount_value:value, min_order:minOrder,
+        expires_at: expiresRaw ? new Date(expiresRaw).toISOString() : null,
+        active, updated_at:new Date().toISOString()
+      };
+      try {
+        $("saveCouponButton").disabled = true;
+        let result;
+        if (id) result = await supabaseClient.from("coupons").update(payload).eq("id",id);
+        else result = await supabaseClient.from("coupons").insert(payload);
+        if (result.error) throw result.error;
+        showStatus("couponStatus", id ? "Cupom atualizado! ✅" : "Cupom criado! 🎟️");
+        clearCouponForm();
+        await loadCoupons();
+      } catch(error) {
+        console.error(error);
+        showStatus("couponStatus", error?.message?.includes("duplicate") ? "Já existe um cupom com esse código." : "Não foi possível salvar o cupom: "+(error.message||"erro desconhecido"),"error");
+      } finally { $("saveCouponButton").disabled = false; }
+    }
+
+    async function toggleCoupon(id, currentActive) {
+      try {
+        const result = await supabaseClient.from("coupons").update({active:!currentActive,updated_at:new Date().toISOString()}).eq("id",id);
+        if (result.error) throw result.error;
+        await loadCoupons();
+      } catch(error) { showStatus("couponStatus","Não foi possível alterar o status do cupom.","error"); }
+    }
+
+    async function deleteCoupon(id) {
+      const c=couponsCache.find(x=>x.id===id);
+      if(!c || !confirm(`Excluir o cupom "${c.code}"?`)) return;
+      try {
+        const result=await supabaseClient.from("coupons").delete().eq("id",id);
+        if(result.error) throw result.error;
+        if(editingCoupon?.id===id) clearCouponForm();
+        await loadCoupons();
+        showStatus("couponStatus","Cupom excluído. 🗑️");
+      } catch(error) { showStatus("couponStatus","Não foi possível excluir o cupom.","error"); }
+    }
 
     /* =========================================================
        PRÉ-VISUALIZAÇÃO DA IMAGEM
@@ -1832,6 +1996,19 @@
         loadProducts
       );
 
+
+
+    $("saveCouponButton").addEventListener("click", saveCoupon);
+    $("clearCouponButton").addEventListener("click", clearCouponForm);
+    $("refreshCouponsButton").addEventListener("click", loadCoupons);
+    $("couponList").addEventListener("click", function(event) {
+      const edit=event.target.closest(".edit-coupon");
+      if(edit){ editCoupon(edit.dataset.id); return; }
+      const toggle=event.target.closest(".toggle-coupon");
+      if(toggle){ toggleCoupon(toggle.dataset.id, toggle.dataset.active==="true"); return; }
+      const del=event.target.closest(".delete-coupon");
+      if(del){ deleteCoupon(del.dataset.id); }
+    });
 
     $("image")
       .addEventListener(
