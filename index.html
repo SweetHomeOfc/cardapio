@@ -33,6 +33,13 @@ footer{margin-top:45px;background:#151619;color:#fff;padding:38px 0 28px}.foot{d
 .cartProgress{font-size:11px;color:var(--muted);margin:7px 0 2px}.cartProgress strong{color:var(--accent)}.cartEmptyHint{margin-top:9px;font-size:11px;color:var(--muted)}
 @media(max-width:520px){.checkoutShade{padding:0}.checkoutModal{border-radius:22px 22px 0 0;padding:18px;max-height:95vh}.checkoutGrid{grid-template-columns:1fr}.field.full{grid-column:auto}.paymentGrid{grid-template-columns:1fr 1fr}.checkoutActions{position:sticky;bottom:0;background:#fffdfb;padding-top:10px}}
 
+
+/* Música */
+.musicPlayer{position:fixed;left:18px;bottom:18px;z-index:96;width:min(330px,calc(100vw - 36px));background:#191b1f;color:#fff;border:1px solid #ffffff22;border-radius:18px;padding:12px;box-shadow:0 14px 35px #0005;display:flex;align-items:center;gap:10px}
+.musicKoala{font-size:29px;line-height:1}.musicInfo{flex:1;min-width:0}.musicLabel{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#e18ba4;font-weight:900}.musicName{font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}.musicControls{display:flex;align-items:center;gap:5px}.musicBtn{border:0;background:#ffffff12;color:#fff;width:34px;height:34px;border-radius:10px;cursor:pointer;font-size:15px}.musicBtn:hover{background:#ffffff22}.musicSelect{max-width:105px;background:#ffffff12;color:#fff;border:1px solid #ffffff18;border-radius:9px;padding:7px;font-size:10px;outline:none}.musicSelect option{color:#111;background:#fff}
+.couponBox{margin:12px 0 4px;background:#f7f2ee;border:1px solid var(--line);border-radius:14px;padding:12px}.couponTitle{font-size:12px;font-weight:900;margin-bottom:7px}.couponRow{display:flex;gap:7px}.couponInput{flex:1;border:1px solid #dcd5cf;background:#fff;border-radius:10px;padding:10px;font:inherit;font-size:12px;outline:none;text-transform:uppercase}.couponInput:focus{border-color:var(--accent);box-shadow:0 0 0 3px #b83b6118}.couponApply{border:0;background:var(--accent);color:#fff;border-radius:10px;padding:10px 13px;font-weight:900;cursor:pointer}.couponMessage{font-size:10px;margin-top:7px;min-height:14px;color:var(--muted)}.couponMessage.ok{color:#198754}.couponMessage.error{color:#b42318}.discountRow{color:#198754!important}
+@media(max-width:520px){.musicPlayer{left:12px;bottom:68px;width:calc(100vw - 24px)}.musicSelect{max-width:88px}}
+
 </style>
 </head>
 <body>
@@ -48,11 +55,34 @@ footer{margin-top:45px;background:#151619;color:#fff;padding:38px 0 28px}.foot{d
 <section class="section" id="tentacoes"><h2>Tentações em Garrafa</h2><p class="sub">Escolha seus sabores e continue comprando. O carrinho fica discreto no canto.</p><div class="grid" id="products"></div></section>
 <section class="section" id="bebidas"><h2>Bebidas</h2><p class="sub">Para acompanhar sua tentação.</p><div class="drinks" id="drinks"></div></section></main>
 <footer><div class="wrap"><div class="foot"><div><h4>Sweet Home Mousse's</h4><p>Sobremesas em garrafa feitas com carinho.</p></div><div><h4>Entrega</h4><p>Parque ecológico, Porto Seguro - BA<br>Consulte disponibilidade para seu bairro.</p></div><div><h4>Pedidos</h4><p>Faça seu pedido pelo WhatsApp.</p><a class="whats" href="https://wa.me/5573982251593" target="_blank">WhatsApp</a></div><div><h4>Instagram</h4><p>Acompanhe novidades e sabores.</p><a class="whats" href="https://www.instagram.com/sweet.home_ofc/" target="_blank">@sweet.home_ofc</a></div></div><div class="copy">Sweet Home Mousse's · Sobremesas feitas com carinho ♥</div></div></footer>
+
+<div class="musicPlayer" id="musicPlayer">
+  <div class="musicKoala">🐨🎧</div>
+  <div class="musicInfo">
+    <div class="musicLabel">Música da Sweet Home</div>
+    <div class="musicName" id="musicName">Escolha uma música</div>
+  </div>
+  <div class="musicControls">
+    <select class="musicSelect" id="musicSelect" aria-label="Escolher música"></select>
+    <button class="musicBtn" id="musicToggle" type="button" title="Tocar">▶️</button>
+  </div>
+  <video id="musicAudio" preload="metadata" playsinline style="display:none"></video>
+</div>
+
 <button class="floatingCart" id="floatingCart" onclick="openCart()"><span class="cartIcon">🛒</span><span class="cartText">Meu carrinho</span><span class="badge" id="count">0</span></button>
 <div class="toast" id="toast"><span>✓</span><div><strong id="toastTitle">Item adicionado</strong><small>Continue escolhendo seus sabores.</small></div></div>
 <div class="koala" id="koala"><span class="koalaEmoji">🐨🛒</span><div class="koalaBubble" id="koalaBubble" role="status" aria-live="polite"></div></div>
 <div class="drawerShade" id="drawerShade" onclick="closeCart()"></div>
-<aside class="drawer" id="drawer"><div class="drawerHead"><h2>Seu pedido</h2><button class="close" onclick="closeCart()">×</button></div><div class="cartItems" id="cartItems"></div><div class="total"><span>Total</span><span id="total">R$ 0,00</span></div><button class="final" onclick="checkout()">💬 Finalizar pelo WhatsApp</button></aside>
+<aside class="drawer" id="drawer"><div class="drawerHead"><h2>Seu pedido</h2><button class="close" onclick="closeCart()">×</button></div><div class="cartItems" id="cartItems"></div><div class="couponBox">
+  <div class="couponTitle">🎟️ Tem um cupom?</div>
+  <div class="couponRow">
+    <input class="couponInput" id="couponInput" maxlength="40" placeholder="Digite seu cupom" autocomplete="off">
+    <button class="couponApply" type="button" onclick="applyCoupon()">Aplicar</button>
+  </div>
+  <div class="couponMessage" id="couponMessage"></div>
+</div>
+<div class="total"><span>Total</span><span id="total">R$ 0,00</span></div>
+<button class="final" onclick="checkout()">💬 Finalizar pelo WhatsApp</button></aside>
 
 <div class="checkoutShade" id="checkoutShade" onclick="if(event.target===this)closeCheckout()">
   <div class="checkoutModal" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
@@ -74,7 +104,7 @@ footer{margin-top:45px;background:#151619;color:#fff;padding:38px 0 28px}.foot{d
         <div class="payOption"><input type="radio" id="credit" name="payment" value="Cartão de crédito"><label for="credit">💳 Crédito</label></div>
       </div>
       <div class="field full" style="margin-top:12px"><label for="notes">Observação do pedido</label><textarea id="notes" name="notes" placeholder="Algum detalhe que precisamos saber? (opcional)"></textarea></div>
-      <div class="deliveryNote">🚚 <b>Entrega:</b> o endereço será enviado junto com o pedido. A disponibilidade e eventual taxa de entrega serão confirmadas pelo WhatsApp.</div>
+      <div class="deliveryNote">🎟️ <b>Cupom:</b> <span id="checkoutCouponLine">Nenhum cupom aplicado.</span><br><br>🚚 <b>Entrega:</b> o endereço será enviado junto com o pedido. A disponibilidade e eventual taxa de entrega serão confirmadas pelo WhatsApp.</div>
       <div class="checkoutActions"><button type="button" class="checkoutCancel" onclick="closeCheckout()">Voltar</button><button type="submit" class="checkoutSend">💬 Enviar pedido no WhatsApp</button></div>
     </form>
   </div>
@@ -89,8 +119,27 @@ const fallbackProducts=[
 {name:'Tentação de Paçoca',description:'Mousse de paçoca, cremosa e irresistível.',price:20.99,old_price:23,image_url:'assets/pacoca.jpg',active:true,category:'garrafa',sort_order:4},
 {name:'Tentação de Morango com creme de chocolate',description:'Morango com creme de chocolate 100% amargo.',price:25,image_url:'assets/morango-chocolate.jpg',active:true,category:'garrafa',sort_order:5}];
 const fallbackDrinks=[{name:'Coca-Cola 1L',price:12,emoji:'🥤',active:true,category:'bebida',sort_order:1},{name:'Guaraná Antarctica 1L',price:10,emoji:'🥤',active:true,category:'bebida',sort_order:2},{name:'Refrigerante Coca-Cola Lata 350ml',price:7,emoji:'🥫',active:true,category:'bebida',sort_order:3},{name:'Refrigerante Guaraná Antarctica Lata 350ml',price:7,emoji:'🥫',active:true,category:'bebida',sort_order:4}];
-let products=[],drinks=[];let cart=JSON.parse(localStorage.getItem('sh_cart')||'[]');const money=v=>Number(v).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-async function loadCatalog(){try{if(window.SUPABASE_URL&&window.SUPABASE_KEY&&!window.SUPABASE_KEY.startsWith('COLE_')){const sb=supabase.createClient(window.SUPABASE_URL,window.SUPABASE_KEY);const {data,error}=await sb.from('products').select('*').eq('active',true).order('category').order('sort_order').order('name');if(error)throw error;products=(data||[]).filter(x=>x.category==='garrafa');drinks=(data||[]).filter(x=>x.category==='bebida');if(!products.length&&!drinks.length)throw new Error('empty')}else throw new Error('not configured')}catch(e){products=fallbackProducts;drinks=fallbackDrinks;console.warn('Catálogo local:',e)}render()}
+let products=[],drinks=[];let coupons=[];let appliedCoupon=JSON.parse(localStorage.getItem('sh_coupon')||'null');let cart=JSON.parse(localStorage.getItem('sh_cart')||'[]');const money=v=>Number(v).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+async function loadCatalog(){
+  try{
+    if(window.SUPABASE_URL&&window.SUPABASE_KEY&&!window.SUPABASE_KEY.startsWith('COLE_')){
+      const sb=supabase.createClient(window.SUPABASE_URL,window.SUPABASE_KEY);
+      const [{data,error},{data:couponData,error:couponError}]=await Promise.all([
+        sb.from('products').select('*').eq('active',true).order('category').order('sort_order').order('name'),
+        sb.from('coupons').select('*').eq('active',true).order('code')
+      ]);
+      if(error)throw error;
+      products=(data||[]).filter(x=>x.category==='garrafa');
+      drinks=(data||[]).filter(x=>x.category==='bebida');
+      coupons=couponError?[]:(couponData||[]);
+      if(!products.length&&!drinks.length)throw new Error('empty');
+    }else throw new Error('not configured');
+  }catch(e){
+    products=fallbackProducts;drinks=fallbackDrinks;coupons=[];
+    console.warn('Catálogo online indisponível:',e);
+  }
+  render();
+}
 function render(){document.getElementById('products').innerHTML=products.map((p,i)=>`<article class="card"><div class="pic"><img src="${p.image_url||p.img}" alt="${p.name}"></div><div class="info"><h3>${p.name}</h3><div class="desc">${p.description||p.desc||''}</div><div class="meta">🍾 500 ml · 👥 2 pessoas</div><div class="price">${p.old_price?`<span class="old">${money(p.old_price)}</span>`:''}${money(p.price)}</div><button class="add" onclick="add('p',${i},this)">🛒 Adicionar</button></div></article>`).join('');document.getElementById('drinks').innerHTML=drinks.map((p,i)=>`<article class="drink"><div class="drinkIcon">${p.emoji||'🥤'}</div><div style="flex:1"><h3>${p.name}</h3><div class="price">${money(p.price)}</div><button class="add" onclick="add('d',${i},this)">Adicionar</button></div></article>`).join('');updateCount()}
 const koalaPhrases=['Excelente escolha! 😋','Uau, esse é um dos meus favoritos! ❤️','Hmmm... esse parece delicioso! 🤭','Boa escolha! Eu aprovo! 🐨✨','Aí sim! Esse vai para o carrinho! 🛒','Você sabe escolher! 😎','Esse eu aprovo de olhos fechados! 🐨👍','Eita, essa escolha foi boa! 😍','Mais um para a sacolinha! 🛍️','Gostei dessa escolha! 💕','Hmmm... quero um também! 😂','Esse promete! 👀','Olha só o que você escolheu! 😍','Mandou bem nessa! ✨','Já estou ficando com vontade... 🤤','Pode colocar no carrinho! 🛒','Esse combina com suas escolhas! 🐨','Aprovadíssimo! 💖','Mais uma escolha deliciosa! 😋','Seu carrinho está ficando incrível! 🥰'];let koalaLastPhrase='';
 function pickKoalaPhrase(){const count=cart.reduce((s,x)=>s+x.qty,0);let pool=koalaPhrases.filter(x=>x!==koalaLastPhrase);if(count===1)pool=pool.filter(x=>!x.includes('Mais um')&&!x.includes('Seu carrinho'));if(!pool.length)pool=koalaPhrases.filter(x=>x!==koalaLastPhrase);const phrase=pool[Math.floor(Math.random()*pool.length)];koalaLastPhrase=phrase;return phrase}
@@ -101,12 +150,113 @@ function save(){localStorage.setItem('sh_cart',JSON.stringify(cart));updateCount
 function updateCount(){const n=cart.reduce((s,x)=>s+x.qty,0);document.getElementById('count').textContent=n;document.getElementById('countTop').textContent=n}
 function openCart(){renderCart();document.getElementById('drawer').classList.add('show');document.getElementById('drawerShade').classList.add('show')}
 function closeCart(){document.getElementById('drawer').classList.remove('show');document.getElementById('drawerShade').classList.remove('show')}
-function change(key,d){let x=cart.find(a=>a.key===key);if(!x)return;x.qty+=d;if(x.qty<=0)cart=cart.filter(a=>a.key!==key);save();renderCart()}
-function renderCart(){const el=document.getElementById('cartItems');if(!cart.length){el.innerHTML='<div class="empty">Seu carrinho está vazio.<div class="cartEmptyHint">🐨 Escolha uma tentação e eu levo até ele!</div></div>'}else{const n=cart.reduce((s,x)=>s+x.qty,0);el.innerHTML=`<div class="cartProgress">🛒 <strong>${n} ${n===1?'item':'itens'}</strong> no seu carrinho</div>`+cart.map(x=>`<div class="item">${x.img?`<img src="${x.img}" alt="">`:`<div class="drinkIcon">${x.emoji}</div>`}<div style="flex:1"><b>${x.name}</b><div>${money(x.price)}</div><div class="qty"><button onclick="change('${x.key}',-1)">−</button><span>${x.qty}</span><button onclick="change('${x.key}',1)">+</button></div></div><strong>${money(x.price*x.qty)}</strong></div>`).join('')}document.getElementById('total').textContent=money(cart.reduce((s,x)=>s+x.price*x.qty,0))}
-function checkout(){if(!cart.length){showToast('Seu carrinho está vazio');return}closeCart();fillCheckout();document.getElementById('checkoutShade').classList.add('show');document.body.style.overflow='hidden';setTimeout(()=>document.getElementById('customerName').focus(),100)}
+function change(key,d){let x=cart.find(a=>a.key===key);if(!x)return;x.qty+=d;if(x.qty<=0)cart=cart.filter(a=>a.key!==key);if(!cart.length){appliedCoupon=null;localStorage.removeItem('sh_coupon')}save();renderCart()}
+function getCartSubtotal(){return cart.reduce((s,x)=>s+x.price*x.qty,0)}
+function getAppliedDiscount(){
+  if(!appliedCoupon)return 0;
+  const subtotal=getCartSubtotal();
+  if(appliedCoupon.discount_type==='percentage')return Math.min(subtotal,subtotal*(Number(appliedCoupon.discount_value)||0)/100);
+  return Math.min(subtotal,Number(appliedCoupon.discount_value)||0);
+}
+function getCartTotal(){return Math.max(0,getCartSubtotal()-getAppliedDiscount())}
+function couponIsValid(c){
+  if(!c||c.active===false)return false;
+  if(c.expires_at&&new Date(c.expires_at).getTime()<Date.now())return false;
+  return getCartSubtotal()>=(Number(c.min_order)||0);
+}
+function renderCart(){
+  const el=document.getElementById('cartItems');
+  if(!cart.length){
+    el.innerHTML='<div class="empty">Seu carrinho está vazio.<div class="cartEmptyHint">🐨 Escolha uma tentação e eu levo até ele!</div></div>';
+  }else{
+    const n=cart.reduce((s,x)=>s+x.qty,0);
+    el.innerHTML=`<div class="cartProgress">🛒 <strong>${n} ${n===1?'item':'itens'}</strong> no seu carrinho</div>`+cart.map(x=>`<div class="item">${x.img?`<img src="${x.img}" alt="">`:`<div class="drinkIcon">${x.emoji}</div>`}<div style="flex:1"><b>${x.name}</b><div>${money(x.price)}</div><div class="qty"><button onclick="change('${x.key}',-1)">−</button><span>${x.qty}</span><button onclick="change('${x.key}',1)">+</button></div></div><strong>${money(x.price*x.qty)}</strong></div>`).join('');
+  }
+  if(appliedCoupon&&!couponIsValid(appliedCoupon)){
+    appliedCoupon=null;localStorage.removeItem('sh_coupon');
+  }
+  const discount=getAppliedDiscount(),subtotal=getCartSubtotal(),total=getCartTotal();
+  const msg=document.getElementById('couponMessage');
+  if(msg){
+    if(appliedCoupon){
+      const label=appliedCoupon.discount_type==='percentage'?`${Number(appliedCoupon.discount_value)}% de desconto`:`${money(appliedCoupon.discount_value)} de desconto`;
+      msg.textContent=`✅ ${appliedCoupon.code} aplicado — ${label}`;
+      msg.className='couponMessage ok';
+      document.getElementById('couponInput').value=appliedCoupon.code;
+    }else{
+      msg.textContent='';
+      msg.className='couponMessage';
+      document.getElementById('couponInput').value='';
+    }
+  }
+  document.getElementById('total').innerHTML=discount?`<span style="font-size:11px;color:#777;font-weight:600">Subtotal ${money(subtotal)}<br><span class="discountRow">− Cupom ${money(discount)}</span></span><strong>${money(total)}</strong>`:money(total);
+}
+function applyCoupon(){
+  const input=document.getElementById('couponInput');
+  const msg=document.getElementById('couponMessage');
+  const code=(input.value||'').trim().toUpperCase();
+  if(!code){appliedCoupon=null;localStorage.removeItem('sh_coupon');renderCart();return;}
+  const coupon=coupons.find(c=>String(c.code||'').toUpperCase()===code);
+  if(!coupon){msg.textContent='❌ Cupom inválido ou indisponível.';msg.className='couponMessage error';return;}
+  if(coupon.expires_at&&new Date(coupon.expires_at).getTime()<Date.now()){msg.textContent='⚠️ Esse cupom expirou.';msg.className='couponMessage error';return;}
+  if(getCartSubtotal()<(Number(coupon.min_order)||0)){msg.textContent=`⚠️ Pedido mínimo: ${money(coupon.min_order)}.`;msg.className='couponMessage error';return;}
+  appliedCoupon=coupon;localStorage.setItem('sh_coupon',JSON.stringify(coupon));renderCart();
+}
+function checkout(){if(!cart.length){showToast('Seu carrinho está vazio');return}if(appliedCoupon&&!couponIsValid(appliedCoupon)){appliedCoupon=null;localStorage.removeItem('sh_coupon')}closeCart();fillCheckout();document.getElementById('checkoutShade').classList.add('show');document.body.style.overflow='hidden';setTimeout(()=>document.getElementById('customerName').focus(),100)}
 function closeCheckout(){document.getElementById('checkoutShade').classList.remove('show');document.body.style.overflow=''}
-function fillCheckout(){const saved=JSON.parse(localStorage.getItem('sh_customer')||'{}');for(const id of ['customerName','address','number','neighborhood','reference','notes'])if(saved[id])document.getElementById(id).value=saved[id];if(saved.payment){const radio=document.querySelector(`input[name="payment"][value="${CSS.escape(saved.payment)}"]`);if(radio)radio.checked=true}const total=cart.reduce((s,x)=>s+x.price*x.qty,0);document.getElementById('checkoutSummary').innerHTML=cart.map(x=>`<div class="checkoutSummaryRow"><span>${x.qty}x ${x.name}</span><strong>${money(x.price*x.qty)}</strong></div>`).join('')+`<div class="checkoutSummaryRow totalRow"><span>Total</span><span>${money(total)}</span></div>`}
-function sendOrder(e){e.preventDefault();if(!cart.length)return;const f=new FormData(e.target),data=Object.fromEntries(f.entries());const payment=document.querySelector('input[name="payment"]:checked')?.value;if(!payment){alert('Escolha uma forma de pagamento.');return}data.payment=payment;localStorage.setItem('sh_customer',JSON.stringify(data));const total=cart.reduce((s,x)=>s+x.price*x.qty,0);const lines=cart.map(x=>`• ${x.qty}x ${x.name} — ${money(x.price*x.qty)}`).join('\n');const address=[data.address,data.number,data.neighborhood].filter(Boolean).join(', ');let msg=`Olá, Sweet Home Mousse's! 💕\n\nQuero fazer este pedido:\n${lines}\n\nTotal: ${money(total)}\n\n👤 Nome: ${data.name}\n📍 Endereço: ${address}\n${data.reference?`📌 Referência: ${data.reference}\n`:''}💳 Pagamento: ${data.payment}${data.notes?`\n📝 Observação: ${data.notes}`:''}`;window.open('https://wa.me/5573982251593?text='+encodeURIComponent(msg),'_blank');showCheckoutSuccess()}
+function fillCheckout(){
+  const saved=JSON.parse(localStorage.getItem('sh_customer')||'{}');
+  for(const id of ['customerName','address','number','neighborhood','reference','notes'])if(saved[id])document.getElementById(id).value=saved[id];
+  if(saved.payment){const radio=document.querySelector(`input[name="payment"][value="${CSS.escape(saved.payment)}"]`);if(radio)radio.checked=true}
+  const subtotal=getCartSubtotal(),discount=getAppliedDiscount(),total=getCartTotal();
+  document.getElementById('checkoutSummary').innerHTML=cart.map(x=>`<div class="checkoutSummaryRow"><span>${x.qty}x ${x.name}</span><strong>${money(x.price*x.qty)}</strong></div>`).join('')+
+    `<div class="checkoutSummaryRow"><span>Subtotal</span><strong>${money(subtotal)}</strong></div>`+
+    (discount?`<div class="checkoutSummaryRow discountRow"><span>🎟️ Cupom ${appliedCoupon.code}</span><strong>− ${money(discount)}</strong></div>`:'')+
+    `<div class="checkoutSummaryRow totalRow"><span>Total</span><span>${money(total)}</span></div>`;
+  document.getElementById('checkoutCouponLine').textContent=appliedCoupon?`${appliedCoupon.code} — desconto de ${money(discount)} aplicado.`:'Nenhum cupom aplicado.';
+}
+function sendOrder(e){
+  e.preventDefault();if(!cart.length)return;
+  const f=new FormData(e.target),data=Object.fromEntries(f.entries());
+  const payment=document.querySelector('input[name="payment"]:checked')?.value;
+  if(!payment){alert('Escolha uma forma de pagamento.');return}
+  data.payment=payment;localStorage.setItem('sh_customer',JSON.stringify(data));
+  const subtotal=getCartSubtotal(),discount=getAppliedDiscount(),total=getCartTotal();
+  const lines=cart.map(x=>`• ${x.qty}x ${x.name} — ${money(x.price*x.qty)}`).join('\n');
+  const address=[data.address,data.number,data.neighborhood].filter(Boolean).join(', ');
+  const couponLine=appliedCoupon?`\n🎟️ Cupom: ${appliedCoupon.code}\n💸 Desconto: ${money(discount)}\nSubtotal: ${money(subtotal)}\n`:'';
+  let msg=`Olá, Sweet Home Mousse's! 💕\n\nQuero fazer este pedido:\n${lines}\n${couponLine}\nTotal: ${money(total)}\n\n👤 Nome: ${data.name}\n📍 Endereço: ${address}\n${data.reference?`📌 Referência: ${data.reference}\n`:''}💳 Pagamento: ${data.payment}${data.notes?`\n📝 Observação: ${data.notes}`:''}`;
+  window.open('https://wa.me/5573982251593?text='+encodeURIComponent(msg),'_blank');showCheckoutSuccess();
+}
 function showCheckoutSuccess(){document.getElementById('checkoutModal').innerHTML=`<div class="successBox"><div class="successKoala">🐨💖</div><h2>Pedido preparado!</h2><p>O WhatsApp foi aberto com todos os detalhes do seu pedido. Agora é só confirmar a disponibilidade e a entrega por lá.</p><button class="successClose" onclick="closeCheckout()">Voltar para o site</button></div>`}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCart();closeCheckout()}});loadCatalog();
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCart();closeCheckout()}});
+/* Player de música — o navegador exige um toque/click do cliente para iniciar áudio. */
+const musicTracks=[
+  {name:'Pompeii — Bastille',src:'assets/music/Bastille - Pompeii (Official Music Video).mp4'},
+  {name:'Happier — Marshmello ft. Bastille',src:'assets/music/Marshmello ft. Bastille - Happier (Official Music Video).mp4'}
+];
+let musicIndex=0;
+const musicEl=document.getElementById('musicAudio');
+const musicSelect=document.getElementById('musicSelect');
+const musicToggle=document.getElementById('musicToggle');
+const musicName=document.getElementById('musicName');
+function setupMusic(){
+  musicSelect.innerHTML=musicTracks.map((t,i)=>`<option value="${i}">${t.name}</option>`).join('');
+  musicSelect.value=String(musicIndex);
+  loadMusic(musicIndex,false);
+}
+function loadMusic(i,auto){
+  musicIndex=Number(i)||0;const track=musicTracks[musicIndex];
+  musicEl.src=track.src;musicEl.load();musicName.textContent=track.name;
+  musicToggle.textContent='▶️';musicToggle.title='Tocar';
+  if(auto)musicEl.play().then(()=>{musicToggle.textContent='⏸️'}).catch(()=>{});
+}
+musicSelect.addEventListener('change',e=>loadMusic(e.target.value,true));
+musicToggle.addEventListener('click',()=>{
+  if(musicEl.paused){musicEl.play().then(()=>{musicToggle.textContent='⏸️';musicToggle.title='Pausar'}).catch(()=>{});}
+  else{musicEl.pause();musicToggle.textContent='▶️';musicToggle.title='Tocar';}
+});
+musicEl.addEventListener('ended',()=>{musicIndex=(musicIndex+1)%musicTracks.length;loadMusic(musicIndex,true)});
+setupMusic();
+loadCatalog();
 </script></body></html>
