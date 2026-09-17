@@ -110,3 +110,6 @@ function sendOrder(e){e.preventDefault();if(!cart.length)return;const f=new Form
 function showCheckoutSuccess(){document.getElementById('checkoutModal').innerHTML=`<div class="successBox"><div class="successKoala">🐨💖</div><h2>Pedido preparado!</h2><p>O WhatsApp foi aberto com todos os detalhes do seu pedido. Agora é só confirmar a disponibilidade e a entrega por lá.</p><button class="successClose" onclick="closeCheckout()">Voltar para o site</button></div>`}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCart();closeCheckout()}});loadCatalog();
 </script></body></html>
+git add .
+git commit -m "Atualiza versão 1.2"
+git push
