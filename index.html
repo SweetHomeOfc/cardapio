@@ -192,19 +192,36 @@ function renderCart(){
   document.getElementById('total').innerHTML=discount?`<span style="font-size:11px;color:#777;font-weight:600">Subtotal ${money(subtotal)}<br><span class="discountRow">− Cupom ${money(discount)}</span></span><strong>${money(total)}</strong>`:money(total);
 }
 function applyCoupon(){
-  const input=document.getElementById('couponInput');
-  const msg=document.getElementById('couponMessage');
-  const code=(input.value||'').trim().toUpperCase();
-  if(!code){appliedCoupon=null;localStorage.removeItem('sh_coupon');renderCart();return;}
-  const coupon=coupons.find(c=>String(c.code||'').toUpperCase()===code);
-  if(!coupon){msg.textContent='❌ Cupom inválido ou indisponível.';msg.className='couponMessage error';return;}
-  if(coupon.expires_at&&new Date(coupon.expires_at).getTime()<Date.now()){msg.textContent='⚠️ Esse cupom expirou.';msg.className='couponMessage error';return;}
-  if(getCartSubtotal()<(Number(coupon.min_order)||0)){msg.textContent=`⚠️ Pedido mínimo: ${money(coupon.min_order)}.`;msg.className='couponMessage error';return;}
-  appliedCoupon=coupon;localStorage.setItem('sh_coupon',JSON.stringify(coupon));renderCart();
+  const input = document.getElementById('couponInput');
+  const msg = document.getElementById('couponMessage');
+  const code = (input.value || '').trim().toUpperCase();
+
+  if(code === 'BOASVINDAS'){
+    appliedCoupon = {
+      code: 'BOASVINDAS',
+      discount_type: 'fixed',
+      discount_value: 10,
+      min_order: 0,
+      active: true
+    };
+
+    localStorage.setItem('sh_coupon', JSON.stringify(appliedCoupon));
+
+    msg.textContent = '✅ BOASVINDAS aplicado — R$ 10,00 de desconto';
+    msg.className = 'couponMessage success';
+
+    renderCart();
+    return;
+  }
+
+  appliedCoupon = null;
+  localStorage.removeItem('sh_coupon');
+
+  msg.textContent = '❌ Cupom inválido ou indisponível.';
+  msg.className = 'couponMessage error';
+
+  renderCart();
 }
-function checkout(){if(!cart.length){showToast('Seu carrinho está vazio');return}if(appliedCoupon&&!couponIsValid(appliedCoupon)){appliedCoupon=null;localStorage.removeItem('sh_coupon')}closeCart();fillCheckout();document.getElementById('checkoutShade').classList.add('show');document.body.style.overflow='hidden';setTimeout(()=>document.getElementById('customerName').focus(),100)}
-function closeCheckout(){document.getElementById('checkoutShade').classList.remove('show');document.body.style.overflow=''}
-function fillCheckout(){
   const saved=JSON.parse(localStorage.getItem('sh_customer')||'{}');
   for(const id of ['customerName','address','number','neighborhood','reference','notes'])if(saved[id])document.getElementById(id).value=saved[id];
   if(saved.payment){const radio=document.querySelector(`input[name="payment"][value="${CSS.escape(saved.payment)}"]`);if(radio)radio.checked=true}
