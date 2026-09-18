@@ -222,6 +222,7 @@ function applyCoupon(){
 
   renderCart();
 }
+  function checkout(){
   const saved=JSON.parse(localStorage.getItem('sh_customer')||'{}');
   for(const id of ['customerName','address','number','neighborhood','reference','notes'])if(saved[id])document.getElementById(id).value=saved[id];
   if(saved.payment){const radio=document.querySelector(`input[name="payment"][value="${CSS.escape(saved.payment)}"]`);if(radio)radio.checked=true}
